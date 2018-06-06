@@ -210,3 +210,10 @@ var ads = [
     },
   },
 ];
+
+var map = document.querySelector('.map')
+map.classList.remove('map--faded');
+
+var mapPins = document.querySelector('.map__pins');
+var similarPinTemplate = document.querySelector('template').content.querySelector('.map__pin');
+
