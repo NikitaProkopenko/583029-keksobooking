@@ -217,3 +217,7 @@ map.classList.remove('map--faded');
 var mapPins = document.querySelector('.map__pins');
 var similarPinTemplate = document.querySelector('template').content.querySelector('.map__pin');
 
+for (var i = 0; i < 8; i++) {
+  var mapPin = similarPinTemplate.cloneNode(true);
+  mapPins.appendChild(mapPin);
+}
