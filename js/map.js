@@ -216,9 +216,13 @@ map.classList.remove('map--faded');
 
 var mapPins = document.querySelector('.map__pins');
 var similarPinTemplate = document.querySelector('template').content.querySelector('.map__pin');
+var similarMapCardTemplate = document.querySelector('template').content.querySelector('.map__card.popup');
 
 for (var i = 0; i < 8; i++) {
   var mapPin = similarPinTemplate.cloneNode(true);
+  var mapCard = similarMapCardTemplate.cloneNode(true);
+  console.log(mapCard);
+  
   var ad = ads[i];
   var mapPinImage = mapPin.querySelector('img');
   
@@ -228,4 +232,6 @@ for (var i = 0; i < 8; i++) {
   mapPinImage.alt = ad.offer.title;
   
   mapPins.appendChild(mapPin);
+  map.appendChild(mapCard);
+  console.log(map);
 }
