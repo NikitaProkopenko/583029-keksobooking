@@ -219,5 +219,13 @@ var similarPinTemplate = document.querySelector('template').content.querySelecto
 
 for (var i = 0; i < 8; i++) {
   var mapPin = similarPinTemplate.cloneNode(true);
+  var ad = ads[i];
+  var mapPinImage = mapPin.querySelector('img');
+  
+  mapPin.style = 'left: ' + (ad.location.x - 20) + 'px;' + ' top: ' + (ad.location.y + 40) + 'px;';
+  
+  mapPinImage.src = ad.authors.avatar;
+  mapPinImage.alt = ad.offer.title;
+  
   mapPins.appendChild(mapPin);
 }
