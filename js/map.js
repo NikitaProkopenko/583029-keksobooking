@@ -211,7 +211,8 @@ var ads = [
   },
 ];
 
-var map = document.querySelector('.map')
+var map = document.querySelector('.map');
+var mapFilterContainer = document.querySelector('.map__filters-container');
 map.classList.remove('map--faded');
 
 var mapPins = document.querySelector('.map__pins');
@@ -220,18 +221,51 @@ var similarMapCardTemplate = document.querySelector('template').content.querySel
 
 for (var i = 0; i < 8; i++) {
   var mapPin = similarPinTemplate.cloneNode(true);
-  var mapCard = similarMapCardTemplate.cloneNode(true);
-  console.log(mapCard);
-  
   var ad = ads[i];
   var mapPinImage = mapPin.querySelector('img');
   
   mapPin.style = 'left: ' + (ad.location.x - 20) + 'px;' + ' top: ' + (ad.location.y + 40) + 'px;';
-  
   mapPinImage.src = ad.authors.avatar;
   mapPinImage.alt = ad.offer.title;
-  
   mapPins.appendChild(mapPin);
-  map.appendChild(mapCard);
-  console.log(map);
+  
+  var mapCard = similarMapCardTemplate.cloneNode(true);
+  var mapCardTitle = mapCard.querySelector('.popup__title');
+  var mapCardAddress = mapCard.querySelector('.popup__text--address');
+  var mapCardPrice = mapCard.querySelector('.popup__text--price');
+  var mapCardType = mapCard.querySelector('.popup__type');
+  var mapCardRoomsGuests = mapCard.querySelector('.popup__text--capacity');
+  var mapCardCheckinCheckout = mapCard.querySelector('.popup__text--time');
+  var mapCardFeatures = mapCard.querySelector('.popup__features');
+  var mapCardFeature = mapCard.querySelector('.popup__feature');
+  
+  mapCardFeatures.remove();
+  
+  mapCardTitle.innerHTML = ad.offer.title;
+  mapCardAddress.innerHTML = ad.offer.address;
+  mapCardPrice.innerHTML = ad.offer.price + '₽/ночь';
+  mapCardRoomsGuests.innerHTML = ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей';
+  mapCardCheckinCheckout.innerHTML = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
+  
+  switch (ad.offer.type) {
+    case 'flat':
+      mapCardType.innerHTML = 'Квартира';
+      break;
+    case 'bungalo':
+      mapCardType.innerHTML = 'Бунгало';
+      break;
+    case 'house':
+      mapCardType.innerHTML = 'Дом';
+      break;
+    case 'palace':
+      mapCardType.innerHTML = 'Дворец';
+      break;
+    default:
+      mapCardType.innerHTML = 'Жилье';
+  }
+  
+  
+  map.insertBefore(mapCard, mapFilterContainer);
 }
+
+console.log(map);
