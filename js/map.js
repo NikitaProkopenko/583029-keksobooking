@@ -219,14 +219,12 @@ var mapPins = document.querySelector('.map__pins');
 var similarPinTemplate = document.querySelector('template').content.querySelector('.map__pin');
 var similarMapCardTemplate = document.querySelector('template').content.querySelector('.map__card.popup');
 
-var featureCount = 6;
-
 for (var i = 0; i < 8; i++) {
   var mapPin = similarPinTemplate.cloneNode(true);
   var ad = ads[i];
   var mapPinImage = mapPin.querySelector('img');
   
-  mapPin.style = 'left: ' + (ad.location.x - 20) + 'px;' + ' top: ' + (ad.location.y + 40) + 'px;';
+  mapPin.style = 'left: ' + (ad.location.x - 25) + 'px;' + ' top: ' + (ad.location.y + 70) + 'px;';
   mapPinImage.src = ad.authors.avatar;
   mapPinImage.alt = ad.offer.title;
   mapPins.appendChild(mapPin);
@@ -238,7 +236,7 @@ for (var i = 0; i < 8; i++) {
   var mapCardType = mapCard.querySelector('.popup__type');
   var mapCardRoomsGuests = mapCard.querySelector('.popup__text--capacity');
   var mapCardCheckinCheckout = mapCard.querySelector('.popup__text--time');
-  var mapCardFeatures = mapCard.querySelector('.popup__features');
+  var mapCardFeatureItems = mapCard.querySelectorAll('.popup__feature');
   
   
   mapCardTitle.innerHTML = ad.offer.title;
@@ -263,14 +261,9 @@ for (var i = 0; i < 8; i++) {
     default:
       mapCardType.innerHTML = 'Жилье';
   }
-  
-  for (var x = 0; x < ad.offer.features.length; x++) {
-    var mapCardFeature = mapCard.querySelector('.popup__feature');
-    mapCardFeature.classList.add('.popup__feature' + '--' + ad.offer.features[x]);
-    mapCardFeatures.appendChild(mapCardFeature);
-  }
-  
+
   map.insertBefore(mapCard, mapFilterContainer);
 }
 
 console.log(map);
+console.log(mapCardFeatureItems);
