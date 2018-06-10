@@ -211,46 +211,36 @@ var ads = [
   },
 ];
 
+// Removed fade class
+
 var map = document.querySelector('.map');
 var mapFilterContainer = document.querySelector('.map__filters-container');
 map.classList.remove('map--faded');
 
+// Map pin creation
+
 var mapPins = document.querySelector('.map__pins');
 var similarPinTemplate = document.querySelector('template').content.querySelector('.map__pin');
-var similarMapCardTemplate = document.querySelector('template').content.querySelector('.map__card.popup');
 
-for (var i = 0; i < ads.length; i++) {
-  var mapPin = similarPinTemplate.cloneNode(true);
-  var ad = ads[i];
-  var mapPinImage = mapPin.querySelector('img');
-  
+function mapPinCreate() {
   mapPin.style = 'left: ' + (ad.location.x - 25) + 'px;' + ' top: ' + (ad.location.y + 70) + 'px;';
   mapPinImage.src = ad.authors.avatar;
   mapPinImage.alt = ad.offer.title;
-  mapPins.appendChild(mapPin);
-  
-  var mapCard = similarMapCardTemplate.cloneNode(true);
-  var mapCardTitle = mapCard.querySelector('.popup__title');
-  var mapCardAddress = mapCard.querySelector('.popup__text--address');
-  var mapCardPrice = mapCard.querySelector('.popup__text--price');
-  var mapCardType = mapCard.querySelector('.popup__type');
-  var mapCardRoomsGuests = mapCard.querySelector('.popup__text--capacity');
-  var mapCardCheckinCheckout = mapCard.querySelector('.popup__text--time');
-  var mapCardFeatures = mapCard.querySelector('.popup__features');
-  var mapCardDescription = mapCard.querySelector('.popup__description');
-  var mapCardPhotos = mapCard.querySelector('.popup__photos');
-  var mapCardAvatart = mapCard.querySelector('.popup__avatar');
-  mapCardFeatures.innerHTML = '';
-  mapCardPhotos.innerHTML = '';
-  
-  
+  return mapPins.appendChild(mapPin);
+}
+
+// Map card template & constructor
+
+var similarMapCardTemplate = document.querySelector('template').content.querySelector('.map__card.popup');
+
+function mapCardCreate() {
   mapCardTitle.innerHTML = ad.offer.title;
   mapCardAddress.innerHTML = ad.offer.address;
   mapCardPrice.innerHTML = ad.offer.price + '₽/ночь';
   mapCardRoomsGuests.innerHTML = ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей';
   mapCardCheckinCheckout.innerHTML = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
   mapCardDescription.innerHTML = ad.offer.description;
-  mapCardAvatart.src = ad.authors.avatar;
+  mapCardAvatar.src = ad.authors.avatar;
   
   switch (ad.offer.type) {
     case 'flat':
@@ -285,8 +275,36 @@ for (var i = 0; i < ads.length; i++) {
     mapCardPhotos.appendChild(photo);
   }
   
-  map.insertBefore(mapCard, mapFilterContainer);
+  return mapCard;
 }
 
-console.log(map);
+// Map card creation cycle
 
+for (var i = 0; i < ads.length; i++) {
+  
+  var ad = ads[i];
+  
+  var mapPin = similarPinTemplate.cloneNode(true);
+  var mapPinImage = mapPin.querySelector('img');
+  mapPinCreate();
+  
+  // Define map card parts
+  
+  var mapCard = similarMapCardTemplate.cloneNode(true);
+  var mapCardTitle = mapCard.querySelector('.popup__title');
+  var mapCardAddress = mapCard.querySelector('.popup__text--address');
+  var mapCardPrice = mapCard.querySelector('.popup__text--price');
+  var mapCardType = mapCard.querySelector('.popup__type');
+  var mapCardRoomsGuests = mapCard.querySelector('.popup__text--capacity');
+  var mapCardCheckinCheckout = mapCard.querySelector('.popup__text--time');
+  var mapCardFeatures = mapCard.querySelector('.popup__features');
+  var mapCardDescription = mapCard.querySelector('.popup__description');
+  var mapCardPhotos = mapCard.querySelector('.popup__photos');
+  var mapCardAvatar = mapCard.querySelector('.popup__avatar');
+  mapCardFeatures.innerHTML = '';
+  mapCardPhotos.innerHTML = '';
+  
+  mapCardCreate();
+  
+  map.insertBefore(mapCard, mapFilterContainer);
+}
