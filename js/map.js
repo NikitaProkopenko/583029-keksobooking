@@ -1,227 +1,11 @@
 'use strict';
 
-var ads = [
-  {
-    'authors': {
-      'avatar': 'img/avatars/user01.png',
-    },
-    'offer': {
-      'title': 'Большая уютная квартира',
-      'address': '150, 150',
-      'price': '1000',
-      'type': 'palace',
-      'rooms': 1,
-      'guests': 1,
-      'checkin': '12:00',
-      'checkout': '12:00',
-      'features': ['wifi', 'dishwasher'],
-      'description': '',
-      'photos': [
-        'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
-        'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
-        'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
-      ],
-    },
-    'location': {
-      'x': 300,
-      'y': 130,
-    },
-  },
-  {
-    'authors': {
-      'avatar': 'img/avatars/user02.png',
-    },
-    'offer': {
-      'title': 'Маленькая неуютная квартира',
-      'address': '300, 300',
-      'price': '2000',
-      'type': 'flat',
-      'rooms': 2,
-      'guests': 2,
-      'checkin': '13:00',
-      'checkout': '13:00',
-      'features': ['wifi', 'dishwasher', 'elevator'],
-      'description': '',
-      'photos': [
-        'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
-        'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
-        'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
-      ],
-    },
-    'location': {
-      'x': 400,
-      'y': 240,
-    },
-  },
-  {
-    'authors': {
-      'avatar': 'img/avatars/user03.png',
-    },
-    'offer': {
-      'title': 'Огромный прекрасный дворец',
-      'address': '400, 600',
-      'price': '50000',
-      'type': 'house',
-      'rooms': 4,
-      'guests': 4,
-      'checkin': '14:00',
-      'checkout': '14:00',
-      'features': ['wifi', 'dishwasher', 'elevator', 'washer'],
-      'description': '',
-      'photos': [
-        'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
-        'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
-        'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
-      ],
-    },
-    'location': {
-      'x': 500,
-      'y': 540,
-    },
-  },
-  {
-    'authors': {
-      'avatar': 'img/avatars/user04.png',
-    },
-    'offer': {
-      'title': 'Маленький ужасный дворец',
-      'address': '450, 500',
-      'price': '15000',
-      'type': 'bungalo',
-      'rooms': 2,
-      'guests': 1,
-      'checkin': '12:00',
-      'checkout': '13:00',
-      'features': ['wifi'],
-      'description': '',
-      'photos': [
-        'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
-        'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
-        'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
-      ],
-    },
-    'location': {
-      'x': 800,
-      'y': 320,
-    },
-  },
-  {
-    'authors': {
-      'avatar': 'img/avatars/user05.png',
-    },
-    'offer': {
-      'title': 'Красивый гостевой домик',
-      'address': '530, 400',
-      'price': '150000',
-      'type': 'house',
-      'rooms': 5,
-      'guests': 3,
-      'checkin': '14:00',
-      'checkout': '12:00',
-      'features': ['wifi', 'dishwasher', 'parking'],
-      'description': '',
-      'photos': [
-        'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
-        'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
-        'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
-      ],
-    },
-    'location': {
-      'x': 640,
-      'y': 600,
-    },
-  },
-  {
-    'authors': {
-      'avatar': 'img/avatars/user06.png',
-    },
-    'offer': {
-      'title': 'Некрасивый негостеприимный домик',
-      'address': '330, 800',
-      'price': '1999',
-      'type': 'house',
-      'rooms': 2,
-      'guests': 1,
-      'checkin': '12:00',
-      'checkout': '13:00',
-      'features': ['parking'],
-      'description': '',
-      'photos': [
-        'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
-        'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
-        'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
-      ],
-    },
-    'location': {
-      'x': 340,
-      'y': 150,
-    },
-  },
-  {
-    'authors': {
-      'avatar': 'img/avatars/user07.png',
-    },
-    'offer': {
-      'title': 'Уютное бунгало далеко от моря',
-      'address': '480, 770',
-      'price': '35000',
-      'type': 'bungalo',
-      'rooms': 1,
-      'guests': 1,
-      'checkin': '14:00',
-      'checkout': '12:00',
-      'features': ['parking', 'wifi', 'washer'],
-      'description': '',
-      'photos': [
-        'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
-        'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
-        'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
-      ],
-    },
-    'location': {
-      'x': 550,
-      'y': 270,
-    },
-  },
-  {
-    'authors': {
-      'avatar': 'img/avatars/user08.png',
-    },
-    'offer': {
-      'title': 'Неуютное бунгало по колено в воде',
-      'address': '880, 370',
-      'price': '5000',
-      'type': 'bungalo',
-      'rooms': 3,
-      'guests': 3,
-      'checkin': '13:00',
-      'checkout': '14:00',
-      'features': ['conditioner'],
-      'description': '',
-      'photos': [
-        'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
-        'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
-        'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
-      ],
-    },
-    'location': {
-      'x': 660,
-      'y': 490,
-    },
-  },
-];
-
 var AVATARS = 'img/avatars/user0';
-var MIN_AVATARS_COUNT = 1;
-var MAX_AVATARS_COUNT = 8;
-
 var TITLES = [
   'Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец',
   'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря',
   'Неуютное бунгало по колено в воде'
 ];
-
-var ADDRESS = ['0', '0'];
 var TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var CHECKIN = ['12:00', '13:00', '14:00'];
 var CHECKOUT = ['12:00', '13:00', '14:00'];
@@ -235,48 +19,13 @@ var MIN_LOCATION_X = 300;
 var MAX_LOCATION_X = 900;
 var MIN_LOCATION_Y = 130;
 var MAX_LOCATION_Y = 630;
-
 var CARDS_QUANTITY = 8;
 
 var cycleCount;
-
 var cardData = [];
 
-var obj = {
-  'authors': {},
-  'offer': {},
-  'location': {},
-};
-
-function createCard() {
-  for (var i = 0; i < CARDS_QUANTITY; i++) {
-    cycleCount = i;
-    obj.authors.avatar = generateAvatar();
-    obj.offer.title = generateTitle();
-    obj.offer.address = generateAddress();
-    obj.offer.price = generatePrice();
-    obj.offer.type = generateType();
-    obj.offer.rooms = generateRooms();
-    obj.offer.guests = generateGuests();
-    obj.offer.checkin = generateCheckin();
-    obj.offer.checkout = generateCheckout();
-    obj.offer.features = generateFeatures();
-    obj.offer.description = DESCRIPTION;
-    obj.offer.photos = generatePhotos();
-    obj.location.x = generateLocationX();
-    obj.location.y = generateLocationY();
-    cardData.push(obj);
-  }
-  
-console.log(cardData);
-}
-
-createCard();
-console.log(cardData);
-
-
 function generateAvatar() {
-  var count = cycleCount;
+  var count = cycleCount + 1;
   var avatarImage = AVATARS + count + '.png';
   return avatarImage;
 }
@@ -302,7 +51,9 @@ function generatePrice() {
 }
 
 function generateType() {
-  var offerType = TYPES[cycleCount];
+  var maxTypesArrayLength = TYPES.length;
+  var minTypesArrayLength = 0;
+  var offerType = TYPES[Math.floor(Math.random() * (maxTypesArrayLength - minTypesArrayLength)) + minTypesArrayLength];
   return offerType;
 }
 
@@ -321,18 +72,22 @@ function generateGuests() {
 }
 
 function generateCheckin() {
-  var offerCheckin = CHECKIN[cycleCount];
+  var maxCheckinArrayLength = CHECKIN.length;
+  var minCheckinArrayLength = 0;
+  var offerCheckin = CHECKIN[Math.floor(Math.random() * (maxCheckinArrayLength - minCheckinArrayLength)) + minCheckinArrayLength];
   return offerCheckin;
 }
 
 function generateCheckout() {
-  var offerCheckout = CHECKOUT[cycleCount];
+  var maxCheckoutArrayLength = CHECKIN.length;
+  var minCheckoutArrayLength = 0;
+  var offerCheckout = CHECKOUT[Math.floor(Math.random() * (maxCheckoutArrayLength - minCheckoutArrayLength)) + minCheckoutArrayLength];
   return offerCheckout;
 }
 
 function generateFeatures() {
   var maxFeatureCount = FEATURES.length;
-  var minFeatureCount = 1;
+  var minFeatureCount = 0;
   var featureArrayLength = Math.floor(Math.random() * (maxFeatureCount - minFeatureCount)) + minFeatureCount;
   var offerFeatures = [];
   
@@ -357,6 +112,38 @@ function generateLocationY() {
   var locationY = Math.floor(Math.random() * (MAX_LOCATION_Y - MIN_LOCATION_Y)) + MIN_LOCATION_Y;
   return locationY;
 }
+
+function createCard() {
+  for (var i = 0; i < CARDS_QUANTITY; i++) {
+    cycleCount = i;
+    
+    var obj = {
+      'authors': {},
+      'offer': {},
+      'location': {},
+    };
+    
+    obj.authors.avatar = generateAvatar();
+    obj.offer.title = generateTitle();
+    obj.offer.address = generateAddress();
+    obj.offer.price = generatePrice();
+    obj.offer.type = generateType();
+    obj.offer.rooms = generateRooms();
+    obj.offer.guests = generateGuests();
+    obj.offer.checkin = generateCheckin();
+    obj.offer.checkout = generateCheckout();
+    obj.offer.features = generateFeatures();
+    obj.offer.description = DESCRIPTION;
+    obj.offer.photos = generatePhotos();
+    obj.location.x = generateLocationX();
+    obj.location.y = generateLocationY();
+    
+    cardData.push(obj);
+  }
+  return cardData;
+}
+
+createCard();
 
 // // Removed fade class
 //
