@@ -145,11 +145,11 @@ function createCard() {
 
 createCard();
 
-// // Removed fade class
-//
-// var map = document.querySelector('.map');
-// var mapFilterContainer = document.querySelector('.map__filters-container');
-// map.classList.remove('map--faded');
+// Removed fade class
+
+var map = document.querySelector('.map');
+var mapFilterContainer = document.querySelector('.map__filters-container');
+map.classList.remove('map--faded');
 //
 // // Map pin creation
 //
