@@ -21,6 +21,7 @@ var MIN_LOCATION_Y = 130;
 var MAX_LOCATION_Y = 630;
 var CARDS_QUANTITY = 8;
 
+
 var cycleCount;
 var cardData = [];
 
