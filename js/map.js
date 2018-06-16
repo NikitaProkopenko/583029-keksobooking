@@ -151,24 +151,26 @@ function createMapCardMainInfo(offerObject) {
   newOfferCard.querySelector('.popup__title').textContent = offerObject.offer.title;
   newOfferCard.querySelector('.popup__text--price').textContent = offerObject.offer.price + '₽/ночь';
   newOfferCard.querySelector('.popup__text--capacity').textContent = offerObject.offer.rooms + ' комнаты для ' + offerObject.offer.guests + ' гостей';
-  newOfferCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + offerObject.offer.checkin + ', выезд до ' +  offerObject.offer.checkout;
+  newOfferCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + offerObject.offer.checkin + ', выезд до ' + offerObject.offer.checkout;
   newOfferCard.querySelector('.popup__description').textContent = offerObject.offer.description;
   newOfferCard.querySelector('.popup__type').textContent = AppartmentTypes[offerObject.offer.type];
+  newOfferCard.querySelector('.popup__features').innerHTML = '';
+
+  createMapCardFeature(offerObject, newOfferCard);
 
   map.insertBefore(newOfferCard, mapFilterContainer);
 }
 
-// function createMapCardFeature() {
-//   for (var i = 0; i < cardData.length; i++) {
-//
-//     var mapCardFeatures = mapCard.querySelector('.popup__features');
-//     mapCardFeatures.innerHTML = '';
-//     var feature = document.createElement('li');
-//     feature.className = 'popup__feature popup__feature--' + cardData[i].offer.features[i];
-//     mapCardFeatures.appendChild(feature);
-//   }
-//   return mapCard;
-// }
+function createMapCardFeature(offerFeatureObject, offerFeatureCard) {
+  var similarFeature = document.createElement('li');
+
+  for (var x = 0; x < offerFeatureObject.offer.features.length; x++) {
+    var feature = similarFeature.cloneNode(true);
+    feature.className = 'popup__feature popup__feature--' + offerFeatureObject.offer.features[x];
+    var featureList = offerFeatureCard.querySelector('.popup__features').appendChild(feature);
+  }
+  return featureList;
+}
 
 // function createMapCardPhotos() {
 //   for (var i = 0; i < cardData.length; i++) {
