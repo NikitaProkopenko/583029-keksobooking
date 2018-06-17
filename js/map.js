@@ -48,11 +48,6 @@ var map = document.querySelector('.map');
 var mapFilterContainer = map.querySelector('.map__filters-container');
 map.classList.remove('map--faded');
 
-// Map pin
-
-var mapPins = map.querySelector('.map__pins');
-var similarPinTemplate = document.querySelector('template').content.querySelector('.map__pin');
-
 // Map card
 
 var CardPhotoParams = {
@@ -120,20 +115,22 @@ function createCard() {
 
 // Map pin creation
 
-function createPin() {
-  // TODO Посмотреть document.createDocumentFragment();
-  // TODO Список пинов для рендеринга передавать через параметр
-  for (var i = 0; i < cardData.length; i++) {
+function createPin(offerPinObject) {
+  var mapPins = map.querySelector('.map__pins');
+  var similarPinTemplate = document.querySelector('template').content.querySelector('.map__pin');
+  var fragment = document.createDocumentFragment();
+
+  for (var i = 0; i < offerPinObject.length; i++) {
     var mapPin = similarPinTemplate.cloneNode(true);
     var mapPinImage = mapPin.querySelector('img');
-
-    mapPin.style.top = cardData[i].location.y + 'px';
-    mapPin.style.left = cardData[i].location.x + 'px';
-
-    mapPinImage.src = cardData[i].authors.avatar;
-    mapPinImage.alt = cardData[i].offer.title;
-    mapPins.appendChild(mapPin);
+    mapPin.style.top = offerPinObject[i].location.y + 'px';
+    mapPin.style.left = offerPinObject[i].location.x + 'px';
+    mapPinImage.src = offerPinObject[i].authors.avatar;
+    mapPinImage.alt = offerPinObject[i].offer.title;
+    fragment.appendChild(mapPin);
   }
+
+  mapPins.appendChild(fragment);
   return mapPins;
 }
 
@@ -147,8 +144,10 @@ function createMapCardMainInfo(offerObject) {
   newOfferCard.querySelector('.popup__text--address').textContent = offerObject.offer.address;
   newOfferCard.querySelector('.popup__title').textContent = offerObject.offer.title;
   newOfferCard.querySelector('.popup__text--price').textContent = offerObject.offer.price + '₽/ночь';
-  newOfferCard.querySelector('.popup__text--capacity').textContent = offerObject.offer.rooms + ' комнаты для ' + offerObject.offer.guests + ' гостей';
-  newOfferCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + offerObject.offer.checkin + ', выезд до ' + offerObject.offer.checkout;
+  newOfferCard.querySelector('.popup__text--capacity').textContent = offerObject.offer.rooms +
+    ' комнаты для ' + offerObject.offer.guests + ' гостей';
+  newOfferCard.querySelector('.popup__text--time').textContent = 'Заезд после ' +
+    offerObject.offer.checkin + ', выезд до ' + offerObject.offer.checkout;
   newOfferCard.querySelector('.popup__description').textContent = offerObject.offer.description;
   newOfferCard.querySelector('.popup__type').textContent = AppartmentTypes[offerObject.offer.type];
   newOfferCard.querySelector('.popup__features').innerHTML = '';
@@ -186,9 +185,5 @@ function createMapCardPhotos(offerPhotoObject, offerPhotoCard) {
 }
 
 createCard();
-createPin();
+createPin(cardData);
 createMapCardMainInfo(cardData[0]);
-
-// TODO. Проверить вызов
-// var allPins = generateObjects(); // Массив из 8 пинов
-// createCard(allPins[0]);
