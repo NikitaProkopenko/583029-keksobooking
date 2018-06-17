@@ -55,12 +55,12 @@ var similarPinTemplate = document.querySelector('template').content.querySelecto
 
 // Map card
 
-//var similarMapCardTemplate = document.querySelector('template').content.querySelector('.map__card.popup');
 var CardPhotoParams = {
-  width: '45px',
-  height: '40px',
+  width: 45,
+  height: 40,
+  class: 'popup__photo',
+  alt: 'Фотография жилья',
 };
-var cardPhoto = document.createElement('img');
 
 // Test data generation
 
@@ -80,9 +80,14 @@ function generateAvatar(avatarNumber) {
   return AVATARS + avatarNumber + '.png';
 }
 
-function generatePhotos() {
-  var offerPhotos = PHOTOS;
-  return offerPhotos;
+function shuffleArray(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+  return array;
 }
 
 function createCard() {
@@ -104,7 +109,7 @@ function createCard() {
     cardDataItem.offer.checkout = getRandomElementsFromCollection(1, CHECKOUT);
     cardDataItem.offer.features = getRandomElementsFromCollection(getRandomInt(1, FEATURES.length), FEATURES);
     cardDataItem.offer.description = DESCRIPTION;
-    cardDataItem.offer.photos = generatePhotos(); // Посмотри алгоритм Фишера-Йетса (https://webformyself.com/sortirovka-massivov-v-javascript/)
+    cardDataItem.offer.photos = shuffleArray(PHOTOS);
     cardDataItem.location.x = getRandomInt(MIN_LOCATION_X, MAX_LOCATION_X) - MapPinParams.widthToCenter;
     cardDataItem.location.y = getRandomInt(MIN_LOCATION_Y, MAX_LOCATION_Y) - MapPinParams.height;
 
@@ -132,14 +137,6 @@ function createPin() {
   return mapPins;
 }
 
-createCard();
-createPin();
-
-for (var i = 0; i < cardData.length; i++) {
-  createMapCardMainInfo(cardData[i]);
-}
-
-
 // Map card template creation
 
 function createMapCardMainInfo(offerObject) {
@@ -155,9 +152,10 @@ function createMapCardMainInfo(offerObject) {
   newOfferCard.querySelector('.popup__description').textContent = offerObject.offer.description;
   newOfferCard.querySelector('.popup__type').textContent = AppartmentTypes[offerObject.offer.type];
   newOfferCard.querySelector('.popup__features').innerHTML = '';
+  newOfferCard.querySelector('.popup__photos').innerHTML = '';
 
   createMapCardFeature(offerObject, newOfferCard);
-
+  createMapCardPhotos(offerObject, newOfferCard);
   map.insertBefore(newOfferCard, mapFilterContainer);
 }
 
@@ -172,41 +170,25 @@ function createMapCardFeature(offerFeatureObject, offerFeatureCard) {
   return featureList;
 }
 
-// function createMapCardPhotos() {
-//   for (var i = 0; i < cardData.length; i++) {
-//     var mapCard = similarMapCardTemplate.cloneNode(true);
-//     var mapCardPhotos = mapCard.querySelector('.popup__photos');
-//     for (var y = 0; y < cardData[i].offer.photos.length; y++) {
-//       mapCardPhotos.innerHTML = '';
-//       cardPhoto.alt = 'Фотография жилья';
-//       cardPhoto.width = cardPhotoWidth;
-//       cardPhoto.height = cardPhotoHeight;
-//       cardPhoto.className = 'popup__photo';
-//       cardPhoto.src = cardData[i].offer.photos[y];
-//       mapCardPhotos.appendChild(cardPhoto);
-//     }
-//   }
-//   return mapCard;
-// }
+function createMapCardPhotos(offerPhotoObject, offerPhotoCard) {
+  var similarPhoto = document.createElement('img');
 
-// function createMapCard() {
-//   for (var i = 0; i < cardData.length; i++) {
-//     var mapCard = similarMapCardTemplate.cloneNode(true);
-//     createMapCardMainInfo();
-//     createMapCardType();
-//     createMapCardFeature();
-//     createMapCardPhotos();
-//     map.insertBefore(mapCard, mapFilterContainer);
-//   }
-//   return mapCard;
-// }
+  for (var y = 0; y < offerPhotoObject.offer.photos.length; y++) {
+    var photo = similarPhoto.cloneNode(true);
+    photo.alt = CardPhotoParams.alt;
+    photo.width = CardPhotoParams.width;
+    photo.height = CardPhotoParams.height;
+    photo.className = CardPhotoParams.class;
+    photo.src = offerPhotoObject.offer.photos[y];
+    var photoList = offerPhotoCard.querySelector('.popup__photos').appendChild(photo);
+  }
+  return photoList;
+}
 
-
-// createCard();
-// createPin();
-// createMapCard();
+createCard();
+createPin();
+createMapCardMainInfo(cardData[0]);
 
 // TODO. Проверить вызов
-
 // var allPins = generateObjects(); // Массив из 8 пинов
 // createCard(allPins[0]);
