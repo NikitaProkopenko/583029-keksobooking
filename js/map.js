@@ -46,7 +46,7 @@ var AppartmentTypes = {
 
 var map = document.querySelector('.map');
 var mapFilterContainer = map.querySelector('.map__filters-container');
-map.classList.remove('map--faded');
+// map.classList.remove('map--faded');
 
 // Map card
 
@@ -184,6 +184,6 @@ function createMapCardPhotos(offerPhotoObject, offerPhotoCard) {
   return photoList;
 }
 
-createCard();
-createPin(cardData);
-createMapCardMainInfo(cardData[0]);
+// createCard();
+// createPin(cardData);
+// createMapCardMainInfo(cardData[0]);
