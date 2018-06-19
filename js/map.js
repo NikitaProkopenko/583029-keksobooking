@@ -28,7 +28,7 @@ var MAX_LOCATION_Y = 630;
 var CARDS_QUANTITY = 8;
 
 
-var MapPinParams = {
+var mapPinParams = {
   widthToCenter: 25,
   height: 70,
 };
@@ -50,7 +50,7 @@ map.classList.remove('map--faded');
 
 // Map card
 
-var CardPhotoParams = {
+var CARD_PHOTO_PARAMS = {
   width: 45,
   height: 40,
   class: 'popup__photo',
@@ -105,8 +105,8 @@ function createCard() {
     cardDataItem.offer.features = getRandomElementsFromCollection(getRandomInt(1, FEATURES.length), FEATURES);
     cardDataItem.offer.description = DESCRIPTION;
     cardDataItem.offer.photos = shuffleArray(PHOTOS);
-    cardDataItem.location.x = getRandomInt(MIN_LOCATION_X, MAX_LOCATION_X) - MapPinParams.widthToCenter;
-    cardDataItem.location.y = getRandomInt(MIN_LOCATION_Y, MAX_LOCATION_Y) - MapPinParams.height;
+    cardDataItem.location.x = getRandomInt(MIN_LOCATION_X, MAX_LOCATION_X) - mapPinParams.widthToCenter;
+    cardDataItem.location.y = getRandomInt(MIN_LOCATION_Y, MAX_LOCATION_Y) - mapPinParams.height;
 
     cardData.push(cardDataItem);
   }
@@ -174,10 +174,10 @@ function createMapCardPhotos(offerPhotoObject, offerPhotoCard) {
 
   for (var y = 0; y < offerPhotoObject.offer.photos.length; y++) {
     var photo = similarPhoto.cloneNode(true);
-    photo.alt = CardPhotoParams.alt;
-    photo.width = CardPhotoParams.width;
-    photo.height = CardPhotoParams.height;
-    photo.className = CardPhotoParams.class;
+    photo.alt = CARD_PHOTO_PARAMS.alt;
+    photo.width = CARD_PHOTO_PARAMS.width;
+    photo.height = CARD_PHOTO_PARAMS.height;
+    photo.className = CARD_PHOTO_PARAMS.class;
     photo.src = offerPhotoObject.offer.photos[y];
     var photoList = offerPhotoCard.querySelector('.popup__photos').appendChild(photo);
   }
