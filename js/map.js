@@ -46,7 +46,6 @@ var AppartmentTypes = {
 
 var map = document.querySelector('.map');
 var mapFilterContainer = map.querySelector('.map__filters-container');
-// map.classList.remove('map--faded');
 
 // Map card
 
@@ -183,6 +182,28 @@ function createMapCardPhotos(offerPhotoObject, offerPhotoCard) {
   }
   return photoList;
 }
+
+var pageFieldsetArray = document.querySelectorAll('fieldset');
+var mainMapPin = document.querySelector('.map__pin--main');
+
+function disableFormsArray(array) {
+  for (var i = 0; i < array.length; i++) {
+    array[i].setAttribute('disabled', '');
+  }
+}
+
+function allowFormArray(array) {
+  for (var i = 0; i < array.length; i++) {
+    array[i].removeAttribute('disabled');
+  }
+}
+
+disableFormsArray(pageFieldsetArray);
+
+mainMapPin.addEventListener('mouseup', function () {
+  allowFormArray(pageFieldsetArray);
+  map.classList.remove('map--faded');
+});
 
 // createCard();
 // createPin(cardData);
