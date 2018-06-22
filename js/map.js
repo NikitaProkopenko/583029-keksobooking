@@ -185,25 +185,49 @@ function createMapCardPhotos(offerPhotoObject, offerPhotoCard) {
 
 var pageFieldsetArray = document.querySelectorAll('fieldset');
 var mainMapPin = document.querySelector('.map__pin--main');
+var addressField = document.querySelector('#address');
+
+var mainPinDisabledState = {
+  width: 156,
+  height: 156,
+  x: 648,
+  y: 297,
+};
+
+var mainPinActiveState = {
+  x: 602.5,
+  y: 291,
+};
+
+function fillAddressCoordinate(coordinateObject) {
+  addressField.placeholder = coordinateObject.x + ', ' + coordinateObject.y;
+  return addressField;
+}
 
 function disableFormsArray(array) {
   for (var i = 0; i < array.length; i++) {
     array[i].setAttribute('disabled', '');
   }
+  return array;
 }
 
 function allowFormArray(array) {
   for (var i = 0; i < array.length; i++) {
     array[i].removeAttribute('disabled');
   }
+  return array;
 }
 
 disableFormsArray(pageFieldsetArray);
+fillAddressCoordinate(mainPinDisabledState);
 
-mainMapPin.addEventListener('mouseup', function () {
+function activatePage() {
   allowFormArray(pageFieldsetArray);
   map.classList.remove('map--faded');
-});
+  fillAddressCoordinate(mainPinActiveState);
+}
+
+mainMapPin.addEventListener('mouseup', activatePage);
 
 // createCard();
 // createPin(cardData);
