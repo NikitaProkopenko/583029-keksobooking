@@ -241,14 +241,37 @@ function activatePage() {
 
 function showCard(event) {
   var target = event.target;
-
   while (target !== mapPins) {
     if (target.type === 'button') {
-      console.log(target);
+      var img = target.querySelector('img');
+      for (var i = 0; i < cardData.length; i++) {
+        var cardAvatar = 'file:///Users/nikitaprokopenko/repo/583029-keksobooking/' + cardData[i].authors.avatar;
+        if (img.src === cardAvatar) {
+          var prevCard = document.querySelector('.map__card');
+          if (prevCard) {
+            prevCard.parentNode.removeChild(prevCard);
+          }
+          createMapCardMainInfo(cardData[i]);
+        }
+      }
     }
     target = target.parentNode;
   }
 }
+
+function closeMapCard() {
+  var mapCard = map.querySelector('.map__card');
+  var closeButton = mapCard.querySelector('.popup__close');
+
+  closeButton.addEventListener('click', function () {
+    mapCard.hidden = true;
+  });
+}
+
 window.onload = preparePage();
 mainMapPin.addEventListener('mouseup', activatePage);
 mapPins.addEventListener('click', showCard);
+map.addEventListener('click', function () {
+  closeMapCard();
+});
+
