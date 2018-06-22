@@ -183,24 +183,30 @@ function createMapCardPhotos(offerPhotoObject, offerPhotoCard) {
   return photoList;
 }
 
-var pageFieldsetArray = document.querySelectorAll('fieldset');
 var mainMapPin = document.querySelector('.map__pin--main');
-var addressField = document.querySelector('#address');
+var mapPins = map.querySelector('.map__pins');
+var pageFieldsetArray = document.querySelectorAll('fieldset');
+var adForm = document.querySelector('.ad-form');
 
-var mainPinDisabledState = {
-  width: 156,
-  height: 156,
-  x: 648,
-  y: 297,
+var mainMapPinParams = {
+  widthToCenterDisabled: 78,
+  widthToCenter: 32,
+  height: 84,
+  startX: 570,
+  startY: 375,
 };
 
-var mainPinActiveState = {
-  x: 602.5,
-  y: 291,
-};
-
-function fillAddressCoordinate(coordinateObject) {
-  addressField.placeholder = coordinateObject.x + ', ' + coordinateObject.y;
+function fillAddressCoordinate(state) {
+  var addressField = document.querySelector('#address');
+  var addressCoordinate;
+  if (state === 'active') {
+    addressCoordinate = (mainMapPinParams.startX + mainMapPinParams.widthToCenter) + ', '
+      + (mainMapPinParams.startY - mapPinParams.height);
+  } else if (state === 'disabled') {
+    addressCoordinate = (mainMapPinParams.startX + mainMapPinParams.widthToCenterDisabled) + ', '
+      + (mainMapPinParams.startY - mainMapPinParams.widthToCenterDisabled);
+  }
+  addressField.value = addressCoordinate;
   return addressField;
 }
 
@@ -218,17 +224,31 @@ function allowFormArray(array) {
   return array;
 }
 
-disableFormsArray(pageFieldsetArray);
-fillAddressCoordinate(mainPinDisabledState);
+function preparePage() {
+  disableFormsArray(pageFieldsetArray);
+  fillAddressCoordinate('disabled');
+}
 
 function activatePage() {
   allowFormArray(pageFieldsetArray);
   map.classList.remove('map--faded');
-  fillAddressCoordinate(mainPinActiveState);
+  adForm.classList.remove('ad-form--disabled');
+  fillAddressCoordinate('active');
+  createCard();
+  createPin(cardData);
+  createMapCardMainInfo(cardData[0]);
 }
 
-mainMapPin.addEventListener('mouseup', activatePage);
+function showCard(event) {
+  var target = event.target;
 
-// createCard();
-// createPin(cardData);
-// createMapCardMainInfo(cardData[0]);
+  while (target !== mapPins) {
+    if (target.type === 'button') {
+      console.log(target);
+    }
+    target = target.parentNode;
+  }
+}
+window.onload = preparePage();
+mainMapPin.addEventListener('mouseup', activatePage);
+mapPins.addEventListener('click', showCard);
