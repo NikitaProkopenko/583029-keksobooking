@@ -124,6 +124,9 @@ function createPin(offerPinObject) {
     var mapPinImage = mapPin.querySelector('img');
     mapPin.style.top = offerPinObject[i].location.y + 'px';
     mapPin.style.left = offerPinObject[i].location.x + 'px';
+
+    mapPin.addEventListener('click', pinClickHandler.bind(undefined, offerPinObject[i]));
+
     mapPinImage.src = offerPinObject[i].authors.avatar;
     mapPinImage.alt = offerPinObject[i].offer.title;
     fragment.appendChild(mapPin);
@@ -131,6 +134,29 @@ function createPin(offerPinObject) {
 
   mapPins.appendChild(fragment);
   return mapPins;
+}
+
+function pinClickHandler (offer) {
+  createMapCardMainInfo(offer);
+}
+
+function closeCard (card) {
+  map.removeChild(card);
+}
+
+function removeCardHandler (evt) {
+  if (evt.key === "Escape") { // Вынести в константы
+    var currentCard = map.querySelector('.map__card');
+    if (currentCard) {
+      closeCard(currentCard);
+    }
+
+    document.removeEventListener('keydown', removeCardHandler);
+  }
+}
+
+function closeCardHandler (evt) {
+  closeCard(evt.currentTarget.parentNode);
 }
 
 // Map card template creation
@@ -154,6 +180,17 @@ function createMapCardMainInfo(offerObject) {
 
   createMapCardFeature(offerObject, newOfferCard);
   createMapCardPhotos(offerObject, newOfferCard);
+
+  document.addEventListener('keydown', removeCardHandler);
+
+  newOfferCard.querySelector('.popup__close').addEventListener('click', closeCardHandler);
+
+  var existCard = map.querySelector('.map__card');
+
+  if (existCard) {
+    return map.replaceChild(newOfferCard, existCard);
+  }
+
   map.insertBefore(newOfferCard, mapFilterContainer);
 }
 
@@ -229,6 +266,7 @@ function preparePage() {
   fillAddressCoordinate('disabled');
 }
 
+
 function activatePage() {
   allowFormArray(pageFieldsetArray);
   map.classList.remove('map--faded');
@@ -236,42 +274,9 @@ function activatePage() {
   fillAddressCoordinate('active');
   createCard();
   createPin(cardData);
-  createMapCardMainInfo(cardData[0]);
-}
 
-function showCard(event) {
-  var target = event.target;
-  while (target !== mapPins) {
-    if (target.type === 'button') {
-      var img = target.querySelector('img');
-      for (var i = 0; i < cardData.length; i++) {
-        var cardAvatar = 'file:///Users/nikitaprokopenko/repo/583029-keksobooking/' + cardData[i].authors.avatar;
-        if (img.src === cardAvatar) {
-          var prevCard = document.querySelector('.map__card');
-          if (prevCard) {
-            prevCard.parentNode.removeChild(prevCard);
-          }
-          createMapCardMainInfo(cardData[i]);
-        }
-      }
-    }
-    target = target.parentNode;
-  }
-}
-
-function closeMapCard() {
-  var mapCard = map.querySelector('.map__card');
-  var closeButton = mapCard.querySelector('.popup__close');
-
-  closeButton.addEventListener('click', function () {
-    mapCard.hidden = true;
-  });
+  mainMapPin.removeEventListener('mouseup', activatePage);
 }
 
 window.onload = preparePage();
 mainMapPin.addEventListener('mouseup', activatePage);
-mapPins.addEventListener('click', showCard);
-map.addEventListener('click', function () {
-  closeMapCard();
-});
-
