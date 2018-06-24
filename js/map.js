@@ -136,15 +136,15 @@ function createPin(offerPinObject) {
   return mapPins;
 }
 
-function pinClickHandler (offer) {
+function pinClickHandler(offer) {
   createMapCardMainInfo(offer);
 }
 
-function closeCard (card) {
+function closeCard(card) {
   map.removeChild(card);
 }
 
-function removeCardHandler (evt) {
+function removeCardHandler(evt) {
   if (evt.key === ESCAPE) {
     var currentCard = map.querySelector('.map__card');
     if (currentCard) {
@@ -154,7 +154,7 @@ function removeCardHandler (evt) {
   }
 }
 
-function closeCardHandler (evt) {
+function closeCardHandler(evt) {
   closeCard(evt.currentTarget.parentNode);
 }
 
@@ -190,7 +190,7 @@ function createMapCardMainInfo(offerObject) {
     return map.replaceChild(newOfferCard, existCard);
   }
 
-  map.insertBefore(newOfferCard, mapFilterContainer);
+  return map.insertBefore(newOfferCard, mapFilterContainer);
 }
 
 function createMapCardFeature(offerFeatureObject, offerFeatureCard) {
