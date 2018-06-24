@@ -26,7 +26,7 @@ var MAX_LOCATION_X = 900;
 var MIN_LOCATION_Y = 130;
 var MAX_LOCATION_Y = 630;
 var CARDS_QUANTITY = 8;
-
+var ESCAPE = 'Escape';
 
 var mapPinParams = {
   widthToCenter: 25,
@@ -145,12 +145,11 @@ function closeCard (card) {
 }
 
 function removeCardHandler (evt) {
-  if (evt.key === "Escape") { // Вынести в константы
+  if (evt.key === ESCAPE) {
     var currentCard = map.querySelector('.map__card');
     if (currentCard) {
       closeCard(currentCard);
     }
-
     document.removeEventListener('keydown', removeCardHandler);
   }
 }
@@ -221,7 +220,6 @@ function createMapCardPhotos(offerPhotoObject, offerPhotoCard) {
 }
 
 var mainMapPin = document.querySelector('.map__pin--main');
-var mapPins = map.querySelector('.map__pins');
 var pageFieldsetArray = document.querySelectorAll('fieldset');
 var adForm = document.querySelector('.ad-form');
 
