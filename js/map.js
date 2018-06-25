@@ -278,3 +278,74 @@ function activatePage() {
 
 window.onload = preparePage();
 mainMapPin.addEventListener('mouseup', activatePage);
+
+// module4-task2
+
+var adFormTitle = adForm.querySelector('#title');
+var adFormPrice = adForm.querySelector('#price');
+var adFormType = adForm.querySelector('#type');
+var invalidMarker = 'border: 3px solid red';
+
+adFormTitle.addEventListener('invalid', function (evt) {
+  var target = evt.target;
+
+  if (target.validity.tooShort) {
+    target.setCustomValidity('Заголовок должен состоять минимум из 30 символов.');
+    target.style = invalidMarker;
+  } else if (target.validity.tooLong) {
+    target.setCustomValidity('Заголовок состоит максимум из 100 символов.');
+    target.style = invalidMarker;
+  } else if (target.validity.valueMissing) {
+    target.setCustomValidity('Обязательное поле.');
+    target.style = invalidMarker;
+  } else {
+    target.setCustomValidity('');
+    target.style = '';
+  }
+});
+
+adFormPrice.addEventListener('invalid', function (evt) {
+  var target = evt.target;
+
+  if (target.value > 1000000) {
+    target.setCustomValidity('Цена не должна превышать 1 000 000 руб.');
+    target.style = invalidMarker;
+  } else if (target.validity.valueMissing) {
+    target.setCustomValidity('Обязательное поле.');
+    target.style = invalidMarker;
+  } else {
+    target.setCustomValidity('');
+    target.style = '';
+  }
+});
+
+adFormType.addEventListener('change', function (evt) {
+  var target = evt.target;
+  var price = adFormPrice;
+  switch (target.value) {
+    case 'bungalo':
+      price.min = 0;
+      price.setCustomValidity('Минимальная цена 0 руб.');
+      price.style = invalidMarker;
+      break;
+    case 'flat':
+      price.min = 1000;
+      price.setCustomValidity('Минимальная цена 1000 руб.');
+      price.style = invalidMarker;
+      break;
+    case 'house':
+      price.min = 5000;
+      price.setCustomValidity('Минимальная цена 5000 руб.');
+      price.style = invalidMarker;
+      break;
+    case 'palace':
+      price.min = 10000;
+      price.setCustomValidity('Минимальная цена 10000 руб.');
+      price.style = invalidMarker;
+      break;
+    default:
+      price.min = 1000;
+      price.setCustomValidity('Минимальная цена 1000 руб.');
+      price.style = invalidMarker;
+  }
+});
