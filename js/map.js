@@ -284,6 +284,8 @@ mainMapPin.addEventListener('mouseup', activatePage);
 var adFormTitle = adForm.querySelector('#title');
 var adFormPrice = adForm.querySelector('#price');
 var adFormType = adForm.querySelector('#type');
+var adFormTimeIn = adForm.querySelector('#timein');
+var adFormTimeOut = adForm.querySelector('#timeout');
 var invalidMarker = 'border: 3px solid red';
 
 adFormTitle.addEventListener('invalid', function (evt) {
@@ -326,26 +328,41 @@ adFormType.addEventListener('change', function (evt) {
     case 'bungalo':
       price.min = 0;
       price.setCustomValidity('Минимальная цена 0 руб.');
+      price.placeholder = 0;
       price.style = invalidMarker;
       break;
     case 'flat':
       price.min = 1000;
       price.setCustomValidity('Минимальная цена 1000 руб.');
+      price.placeholder = 1000;
       price.style = invalidMarker;
       break;
     case 'house':
       price.min = 5000;
       price.setCustomValidity('Минимальная цена 5000 руб.');
+      price.placeholder = 5000;
       price.style = invalidMarker;
       break;
     case 'palace':
       price.min = 10000;
       price.setCustomValidity('Минимальная цена 10000 руб.');
+      price.placeholder = 10000;
       price.style = invalidMarker;
       break;
     default:
       price.min = 1000;
       price.setCustomValidity('Минимальная цена 1000 руб.');
+      price.placeholder = 1000;
       price.style = invalidMarker;
   }
+});
+
+adFormTimeIn.addEventListener('change', function (evt) {
+  var target = evt.target;
+  adFormTimeOut.value = target.value;
+});
+
+adFormTimeOut.addEventListener('change', function (evt) {
+  var target = evt.target;
+  adFormTimeIn.value = target.value;
 });
