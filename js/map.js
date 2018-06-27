@@ -286,6 +286,8 @@ var adFormPrice = adForm.querySelector('#price');
 var adFormType = adForm.querySelector('#type');
 var adFormTimeIn = adForm.querySelector('#timein');
 var adFormTimeOut = adForm.querySelector('#timeout');
+var adFormRoomNumber = adForm.querySelector('#room_number');
+var adFormCapacity = adForm.querySelector('#capacity');
 var invalidMarker = 'border: 3px solid red';
 
 adFormTitle.addEventListener('invalid', function (evt) {
@@ -365,4 +367,22 @@ adFormTimeIn.addEventListener('change', function (evt) {
 adFormTimeOut.addEventListener('change', function (evt) {
   var target = evt.target;
   adFormTimeIn.value = target.value;
+});
+
+adFormRoomNumber.addEventListener('change', function (evt) {
+  var target = evt.target;
+  if (adFormCapacity.value !== target.value) {
+    adFormCapacity.style = invalidMarker;
+  } else {
+    adFormCapacity.style = '';
+  }
+});
+
+adFormCapacity.addEventListener('change', function (evt) {
+  var target = evt.target;
+  if (adFormRoomNumber.value !== target.value) {
+    adFormRoomNumber.style = invalidMarker;
+  } else {
+    adFormRoomNumber.style = '';
+  }
 });
