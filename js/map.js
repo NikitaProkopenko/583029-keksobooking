@@ -27,6 +27,7 @@ var MIN_LOCATION_Y = 130;
 var MAX_LOCATION_Y = 630;
 var CARDS_QUANTITY = 8;
 var ESCAPE = 'Escape';
+var DEFAULT_SELECTED_ROOM = '1';
 
 var mapPinParams = {
   widthToCenter: 25,
@@ -331,31 +332,26 @@ adFormType.addEventListener('change', function (evt) {
       price.min = 0;
       price.setCustomValidity('Минимальная цена 0 руб.');
       price.placeholder = 0;
-      price.style = invalidMarker;
       break;
     case 'flat':
       price.min = 1000;
       price.setCustomValidity('Минимальная цена 1000 руб.');
       price.placeholder = 1000;
-      price.style = invalidMarker;
       break;
     case 'house':
       price.min = 5000;
       price.setCustomValidity('Минимальная цена 5000 руб.');
       price.placeholder = 5000;
-      price.style = invalidMarker;
       break;
     case 'palace':
       price.min = 10000;
       price.setCustomValidity('Минимальная цена 10000 руб.');
       price.placeholder = 10000;
-      price.style = invalidMarker;
       break;
     default:
       price.min = 1000;
       price.setCustomValidity('Минимальная цена 1000 руб.');
       price.placeholder = 1000;
-      price.style = invalidMarker;
   }
 });
 
@@ -369,14 +365,32 @@ adFormTimeOut.addEventListener('change', function (evt) {
   adFormTimeIn.value = target.value;
 });
 
-adFormRoomNumber.addEventListener('change', function (evt) {
-  var target = evt.target;
-  if (adFormCapacity.value !== target.value) {
-    adFormCapacity.style = invalidMarker;
-  } else {
-    adFormCapacity.style = '';
+var RoomCapacityDict = {
+  '1': ['1'],
+  '2': ['1', '2'],
+  '3': ['1', '2', '3'],
+  '100': ['0']
+};
+
+function setCapacity(selectedRoom) {
+  var capacities = adFormCapacity.querySelectorAll('option');
+
+  for (var i = 0; i < capacities.length; i++) {
+    capacities[i].disabled = !RoomCapacityDict[selectedRoom].includes(capacities[i].value);
   }
-});
+
+  if (adFormCapacity.options[adFormCapacity.selectedIndex].disabled) {
+    adFormCapacity.value = RoomCapacityDict[selectedRoom][0];
+  }
+}
+
+function formRoomNumberHandler(evt) {
+  setCapacity(evt.currentTarget.value);
+}
+
+setCapacity(DEFAULT_SELECTED_ROOM);
+
+adFormRoomNumber.addEventListener('change', formRoomNumberHandler);
 
 adFormCapacity.addEventListener('change', function (evt) {
   var target = evt.target;
