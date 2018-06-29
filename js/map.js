@@ -28,6 +28,12 @@ var MAX_LOCATION_Y = 630;
 var CARDS_QUANTITY = 8;
 var ESCAPE = 'Escape';
 var DEFAULT_SELECTED_ROOM = '1';
+var MIN_PRICE_PARAMS = {
+  'bungalo': 0,
+  'flat': 1000,
+  'house': 5000,
+  'palace': 10000,
+};
 
 var mapPinParams = {
   widthToCenter: 25,
@@ -318,6 +324,8 @@ adFormPrice.addEventListener('invalid', function (evt) {
   } else if (target.validity.valueMissing) {
     target.setCustomValidity('Обязательное поле.');
     target.style = invalidMarker;
+  } else if (target.value < target.min) {
+    target.setCustomValidity('Минимальная цена ' + target.min + ' руб.');
   } else {
     target.setCustomValidity('');
     target.style = '';
@@ -327,31 +335,27 @@ adFormPrice.addEventListener('invalid', function (evt) {
 adFormType.addEventListener('change', function (evt) {
   var target = evt.target;
   var price = adFormPrice;
+
   switch (target.value) {
     case 'bungalo':
-      price.min = 0;
-      price.setCustomValidity('Минимальная цена 0 руб.');
-      price.placeholder = 0;
+      price.min = MIN_PRICE_PARAMS.bungalo;
+      price.placeholder = MIN_PRICE_PARAMS.bungalo;
       break;
     case 'flat':
-      price.min = 1000;
-      price.setCustomValidity('Минимальная цена 1000 руб.');
-      price.placeholder = 1000;
+      price.min = MIN_PRICE_PARAMS.flat;
+      price.placeholder = MIN_PRICE_PARAMS.flat;
       break;
     case 'house':
-      price.min = 5000;
-      price.setCustomValidity('Минимальная цена 5000 руб.');
-      price.placeholder = 5000;
+      price.min = MIN_PRICE_PARAMS.house;
+      price.placeholder = MIN_PRICE_PARAMS.house;
       break;
     case 'palace':
-      price.min = 10000;
-      price.setCustomValidity('Минимальная цена 10000 руб.');
-      price.placeholder = 10000;
+      price.min = MIN_PRICE_PARAMS.palace;
+      price.placeholder = MIN_PRICE_PARAMS.palace;
       break;
     default:
-      price.min = 1000;
-      price.setCustomValidity('Минимальная цена 1000 руб.');
-      price.placeholder = 1000;
+      price.min = MIN_PRICE_PARAMS.flat;
+      price.placeholder = MIN_PRICE_PARAMS.flat;
   }
 });
 
@@ -399,4 +403,23 @@ adFormCapacity.addEventListener('change', function (evt) {
   } else {
     adFormRoomNumber.style = '';
   }
+});
+
+var adFormReset = adForm.querySelector('.ad-form__reset');
+function removePin() {
+  var mapPins = map.querySelector('.map__pins');
+  var fullPinList = mapPins.querySelectorAll('button', 'map-pin');
+
+  for (var i = 1; i < fullPinList.length; i++) {
+    mapPins.removeChild(fullPinList[i]);
+  }
+}
+
+adFormReset.addEventListener('click', function () {
+  adForm.reset();
+  map.classList.add('map--faded');
+  adForm.classList.add('ad-form--disabled');
+  fillAddressCoordinate('disabled');
+  disableFormsArray(pageFieldsetArray);
+  removePin();
 });
