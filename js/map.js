@@ -302,24 +302,23 @@ adFormTitle.addEventListener('invalid', function (evt) {
 
   if (target.validity.tooShort) {
     target.setCustomValidity('Заголовок должен состоять минимум из 30 символов.');
-    target.style = invalidMarker;
   } else if (target.validity.tooLong) {
     target.setCustomValidity('Заголовок состоит максимум из 100 символов.');
-    target.style = invalidMarker;
   } else if (target.validity.valueMissing) {
     target.setCustomValidity('Обязательное поле.');
-    target.style = invalidMarker;
   } else {
     target.setCustomValidity('');
     target.style = '';
   }
 });
 
+var MAX_APPARTMENT_PRICE = 1000000;
+
 adFormPrice.addEventListener('invalid', function (evt) {
   var target = evt.target;
 
-  if (target.value > 1000000) {
-    target.setCustomValidity('Цена не должна превышать 1 000 000 руб.');
+  if (target.value >MAX_APPARTMENT_PRICE) {
+    target.setCustomValidity('Цена не должна превышать' + MAX_APPARTMENT_PRICE + ' руб.');
     target.style = invalidMarker;
   } else if (target.validity.valueMissing) {
     target.setCustomValidity('Обязательное поле.');
@@ -332,24 +331,33 @@ adFormPrice.addEventListener('invalid', function (evt) {
   }
 });
 
+adFormPrice.placeholder = MIN_PRICE_PARAMS.flat;
+
+var AppartmentPriceTypes = {
+  bungalo: 'bungalo',
+  flat: 'flat',
+  house: 'house',
+  palace: 'palace',
+};
+
 adFormType.addEventListener('change', function (evt) {
   var target = evt.target;
   var price = adFormPrice;
 
   switch (target.value) {
-    case 'bungalo':
+    case AppartmentPriceTypes.bungalo:
       price.min = MIN_PRICE_PARAMS.bungalo;
       price.placeholder = MIN_PRICE_PARAMS.bungalo;
       break;
-    case 'flat':
+    case AppartmentPriceTypes.flat:
       price.min = MIN_PRICE_PARAMS.flat;
       price.placeholder = MIN_PRICE_PARAMS.flat;
       break;
-    case 'house':
+    case AppartmentPriceTypes.house:
       price.min = MIN_PRICE_PARAMS.house;
       price.placeholder = MIN_PRICE_PARAMS.house;
       break;
-    case 'palace':
+    case AppartmentPriceTypes.palace:
       price.min = MIN_PRICE_PARAMS.palace;
       price.placeholder = MIN_PRICE_PARAMS.palace;
       break;
