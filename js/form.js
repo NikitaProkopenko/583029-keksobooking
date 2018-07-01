@@ -140,8 +140,12 @@
     allowFormArray(window.mainElements.pageFieldsetArray);
     window.mainElements.map.classList.remove('map--faded');
     window.mainElements.adForm.classList.remove('ad-form--disabled');
-    // fillAddressCoordinate('active');
-    // createPin(cardData);
+    window.map.fillAddressCoordinate('active');
+    window.backend.downloadData(function (data) {
+      window.map.createPin(data);
+    }, function (error) {
+      console.log(error);
+    });
 
     window.mainElements.mainMapPin.removeEventListener('mouseup', activatePageAfterReset);
   }
@@ -151,8 +155,8 @@
     window.mainElements.adForm.reset();
     window.mainElements.map.classList.add('map--faded');
     window.mainElements.adForm.classList.add('ad-form--disabled');
-    // fillAddressCoordinate('disabled');
-    // disableFormsArray(pageFieldsetArray);
+    window.map.fillAddressCoordinate('disabled');
+    disableFormsArray(window.mainElements.pageFieldsetArray);
     removePin();
 
     if (currentCard) {

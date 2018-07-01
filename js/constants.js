@@ -19,6 +19,7 @@
   };
 
   var DEFAULT_SELECTED_ROOM = '1';
+
   var MIN_PRICE_PARAMS = {
     'bungalo': 0,
     'flat': 1000,
@@ -26,12 +27,15 @@
     'palace': 10000,
   };
 
+  var ESCAPE = 'Escape';
+
   window.constants = {
     MAX_APPARTMENT_PRICE: MAX_APPARTMENT_PRICE,
     DEFAULT_SELECTED_ROOM: DEFAULT_SELECTED_ROOM,
     MIN_PRICE_PARAMS: MIN_PRICE_PARAMS,
     AppartmentPriceTypes: AppartmentPriceTypes,
     RoomCapacityDict: RoomCapacityDict,
+    ESCAPE: ESCAPE,
   };
 
 })();
