@@ -147,7 +147,7 @@
   }
 
   adFormReset.addEventListener('click', function () {
-    var currentCard = map.querySelector('.map__card');
+    var currentCard = window.mainElements.map.querySelector('.map__card');
     window.mainElements.adForm.reset();
     window.mainElements.map.classList.add('map--faded');
     window.mainElements.adForm.classList.add('ad-form--disabled');
@@ -164,6 +164,7 @@
 
   window.form = {
     disableFormsArray: disableFormsArray,
+    allowFormArray: allowFormArray,
   };
 
 })();
