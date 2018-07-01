@@ -9,6 +9,13 @@
       y: evt.clientY
     };
 
+    var pinBreakPoints = {
+      minX: 0,
+      maxX: 1200,
+      minY: 130,
+      maxY: 630,
+    };
+
     var dragged = false;
 
     var onMouseMove = function (moveEvt) {
@@ -24,8 +31,21 @@
         y: moveEvt.clientY
       };
 
-      window.mainElements.mainMapPin.style.top = (window.mainElements.mainMapPin.offsetTop - shift.y) + 'px';
-      window.mainElements.mainMapPin.style.left = (window.mainElements.mainMapPin.offsetLeft - shift.x) + 'px';
+      if (window.mainElements.mainMapPin.offsetTop - shift.y < pinBreakPoints.minY) {
+        window.mainElements.mainMapPin.style.top = pinBreakPoints.minY + 'px';
+      } else if (window.mainElements.mainMapPin.offsetTop - shift.y > pinBreakPoints.maxY) {
+        window.mainElements.mainMapPin.style.top = pinBreakPoints.maxY + 'px';
+      } else {
+        window.mainElements.mainMapPin.style.top = (window.mainElements.mainMapPin.offsetTop - shift.y) + 'px';
+      }
+
+      if (window.mainElements.mainMapPin.offsetLeft - shift.x < pinBreakPoints.minX) {
+        window.mainElements.mainMapPin.style.left = pinBreakPoints.minX + 'px';
+      } else if (window.mainElements.mainMapPin.offsetLeft - shift.x > pinBreakPoints.maxX) {
+        window.mainElements.mainMapPin.style.left = pinBreakPoints.maxX + 'px';
+      } else {
+        window.mainElements.mainMapPin.style.left = (window.mainElements.mainMapPin.offsetLeft - shift.x) + 'px';
+      }
     };
 
     var onMouseUp = function (upEvt) {
