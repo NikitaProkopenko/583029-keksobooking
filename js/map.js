@@ -442,7 +442,11 @@ adFormReset.addEventListener('click', function () {
   fillAddressCoordinate('disabled');
   disableFormsArray(pageFieldsetArray);
   removePin();
-  map.removeChild(currentCard);
+
+  if (currentCard) {
+    map.removeChild(currentCard);
+  }
+
   mainMapPin.addEventListener('mouseup', activatePageAfterReset);
 });
 
