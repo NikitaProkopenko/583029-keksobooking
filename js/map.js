@@ -317,7 +317,7 @@ var MAX_APPARTMENT_PRICE = 1000000;
 adFormPrice.addEventListener('invalid', function (evt) {
   var target = evt.target;
 
-  if (target.value >MAX_APPARTMENT_PRICE) {
+  if (target.value > MAX_APPARTMENT_PRICE) {
     target.setCustomValidity('Цена не должна превышать' + MAX_APPARTMENT_PRICE + ' руб.');
     target.style = invalidMarker;
   } else if (target.validity.valueMissing) {
@@ -414,6 +414,7 @@ adFormCapacity.addEventListener('change', function (evt) {
 });
 
 var adFormReset = adForm.querySelector('.ad-form__reset');
+
 function removePin() {
   var mapPins = map.querySelector('.map__pins');
   var fullPinList = mapPins.querySelectorAll('button', 'map-pin');
@@ -423,13 +424,26 @@ function removePin() {
   }
 }
 
+function activatePageAfterReset() {
+  allowFormArray(pageFieldsetArray);
+  map.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+  fillAddressCoordinate('active');
+  createPin(cardData);
+
+  mainMapPin.removeEventListener('mouseup', activatePageAfterReset);
+}
+
 adFormReset.addEventListener('click', function () {
+  var currentCard = map.querySelector('.map__card');
   adForm.reset();
   map.classList.add('map--faded');
   adForm.classList.add('ad-form--disabled');
   fillAddressCoordinate('disabled');
   disableFormsArray(pageFieldsetArray);
   removePin();
+  map.removeChild(currentCard);
+  mainMapPin.addEventListener('mouseup', activatePageAfterReset);
 });
 
 // module5-task1
@@ -468,8 +482,8 @@ mainMapPin.addEventListener('mousedown', function (evt) {
     document.removeEventListener('mouseup', onMouseUp);
 
     if (dragged) {
-      var onClickPreventDefault = function (evt) {
-        evt.preventDefault();
+      var onClickPreventDefault = function (evtDrag) {
+        evtDrag.preventDefault();
         mainMapPin.removeEventListener('click', onClickPreventDefault);
       };
       mainMapPin.addEventListener('click', onClickPreventDefault);
