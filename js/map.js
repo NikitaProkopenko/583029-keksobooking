@@ -8,11 +8,10 @@
   };
 
   var mainMapPinParams = {
-    widthToCenterDisabled: 78,
     widthToCenter: 32,
     height: 84,
-    startX: 570,
-    startY: 375,
+    startX: window.mainElements.mainMapPin.offsetLeft,
+    startY: window.mainElements.mainMapPin.offsetTop,
   };
 
   var AppartmentTypes = {
@@ -136,30 +135,26 @@
     return window.mainElements.map.insertBefore(newOfferCard, window.mainElements.mapFilterContainer);
   }
 
-  function fillAddressCoordinate(state) {
+  function fillAddressCoordinate() {
     var addressField = document.querySelector('#address');
     var addressCoordinate;
-    if (state === 'active') {
-      addressCoordinate = (mainMapPinParams.startX + mainMapPinParams.widthToCenter) + ', '
-        + (mainMapPinParams.startY - mapPinParams.height);
-    } else if (state === 'disabled') {
-      addressCoordinate = (mainMapPinParams.startX + mainMapPinParams.widthToCenterDisabled) + ', '
-        + (mainMapPinParams.startY - mainMapPinParams.widthToCenterDisabled);
-    }
+
+    addressCoordinate = (mainMapPinParams.startX + mainMapPinParams.widthToCenter) + ', '
+      + (mainMapPinParams.startY - mapPinParams.height);
     addressField.value = addressCoordinate;
+
     return addressField;
   }
 
   function preparePage() {
     window.form.disableFormsArray(window.mainElements.pageFieldsetArray);
-    fillAddressCoordinate('disabled');
+    fillAddressCoordinate();
   }
 
   function activatePage() {
     window.form.allowFormArray(window.mainElements.pageFieldsetArray);
     window.mainElements.map.classList.remove('map--faded');
     window.mainElements.adForm.classList.remove('ad-form--disabled');
-    fillAddressCoordinate('active');
     window.backend.downloadData(function (data) {
       createPin(data);
     }, function (error) {
@@ -175,6 +170,7 @@
   window.map = {
     fillAddressCoordinate: fillAddressCoordinate,
     createPin: createPin,
+    mainMapPinParams: mainMapPinParams,
   };
 
 })();

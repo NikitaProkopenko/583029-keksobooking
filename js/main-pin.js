@@ -17,6 +17,13 @@
     };
 
     var dragged = false;
+    var updatedCoordinateX;
+    var updatedCoordinateY;
+
+    function updateAddressCoordinate(x, y) {
+      var addressField = document.querySelector('#address');
+      addressField.value = x + ' ' + y;
+    }
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
@@ -33,19 +40,27 @@
 
       if (window.mainElements.mainMapPin.offsetTop - shift.y < pinBreakPoints.minY) {
         window.mainElements.mainMapPin.style.top = pinBreakPoints.minY + 'px';
+        updatedCoordinateY = pinBreakPoints.minY;
       } else if (window.mainElements.mainMapPin.offsetTop - shift.y > pinBreakPoints.maxY) {
         window.mainElements.mainMapPin.style.top = pinBreakPoints.maxY + 'px';
+        updatedCoordinateY = pinBreakPoints.maxY;
       } else {
         window.mainElements.mainMapPin.style.top = (window.mainElements.mainMapPin.offsetTop - shift.y) + 'px';
+        updatedCoordinateY = window.mainElements.mainMapPin.offsetTop - shift.y;
       }
 
       if (window.mainElements.mainMapPin.offsetLeft - shift.x < pinBreakPoints.minX) {
         window.mainElements.mainMapPin.style.left = pinBreakPoints.minX + 'px';
+        updatedCoordinateX = pinBreakPoints.minX;
       } else if (window.mainElements.mainMapPin.offsetLeft - shift.x > pinBreakPoints.maxX) {
         window.mainElements.mainMapPin.style.left = pinBreakPoints.maxX + 'px';
+        updatedCoordinateX = pinBreakPoints.maxX;
       } else {
         window.mainElements.mainMapPin.style.left = (window.mainElements.mainMapPin.offsetLeft - shift.x) + 'px';
+        updatedCoordinateX = window.mainElements.mainMapPin.offsetLeft - shift.x;
       }
+
+      updateAddressCoordinate(updatedCoordinateX, updatedCoordinateY);
     };
 
     var onMouseUp = function (upEvt) {
