@@ -9,9 +9,12 @@
 
   var mainMapPinParams = {
     widthToCenter: 32,
+    width: 64,
     height: 84,
-    startX: window.mainElements.mainMapPin.offsetLeft,
-    startY: window.mainElements.mainMapPin.offsetTop,
+    startX: 570,
+    startY: 375,
+    coordinateX: window.mainElements.mainMapPin.offsetLeft,
+    coordinateY: window.mainElements.mainMapPin.offsetTop,
   };
 
   var AppartmentTypes = {
@@ -139,8 +142,8 @@
     var addressField = document.querySelector('#address');
     var addressCoordinate;
 
-    addressCoordinate = (mainMapPinParams.startX + mainMapPinParams.widthToCenter) + ', '
-      + (mainMapPinParams.startY - mapPinParams.height);
+    addressCoordinate = (mainMapPinParams.coordinateX + mainMapPinParams.widthToCenter) + ', '
+      + (mainMapPinParams.coordinateY - mapPinParams.height);
     addressField.value = addressCoordinate;
 
     return addressField;

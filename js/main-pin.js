@@ -22,7 +22,7 @@
 
     function updateAddressCoordinate(x, y) {
       var addressField = document.querySelector('#address');
-      addressField.value = x + ' ' + y;
+      addressField.value = x + ', ' + y;
     }
 
     var onMouseMove = function (moveEvt) {
@@ -53,7 +53,7 @@
         window.mainElements.mainMapPin.style.left = pinBreakPoints.minX + 'px';
         updatedCoordinateX = pinBreakPoints.minX;
       } else if (window.mainElements.mainMapPin.offsetLeft - shift.x > pinBreakPoints.maxX) {
-        window.mainElements.mainMapPin.style.left = pinBreakPoints.maxX + 'px';
+        window.mainElements.mainMapPin.style.left = pinBreakPoints.maxX - window.map.mainMapPinParams.width + 'px';
         updatedCoordinateX = pinBreakPoints.maxX;
       } else {
         window.mainElements.mainMapPin.style.left = (window.mainElements.mainMapPin.offsetLeft - shift.x) + 'px';
