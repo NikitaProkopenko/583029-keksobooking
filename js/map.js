@@ -170,6 +170,11 @@
   window.onload = preparePage();
   window.mainElements.mainMapPin.addEventListener('mouseup', activatePage);
 
+  var sendButton = window.mainElements.adForm.querySelector('.ad-form__submit');
+  sendButton.addEventListener('click', function () {
+    window.backend.uploadData();
+  });
+
   window.map = {
     fillAddressCoordinate: fillAddressCoordinate,
     createPin: createPin,
