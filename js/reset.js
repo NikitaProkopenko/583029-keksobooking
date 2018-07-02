@@ -32,12 +32,12 @@
     window.mainElements.mainMapPin.removeEventListener('mouseup', activatePageAfterReset);
   }
 
-  adFormReset.addEventListener('click', function () {
+  function resetForm() {
     var currentCard = window.mainElements.map.querySelector('.map__card');
     window.mainElements.adForm.reset();
     window.mainElements.map.classList.add('map--faded');
     window.mainElements.adForm.classList.add('ad-form--disabled');
-    window.map.fillAddressCoordinate('disabled');
+    window.map.fillAddressCoordinate();
     window.form.disableFormsArray(window.mainElements.pageFieldsetArray);
     mainPinCoordinateReset();
     removePin();
@@ -45,7 +45,15 @@
     if (currentCard) {
       window.mainElements.map.removeChild(currentCard);
     }
+  }
 
+  adFormReset.addEventListener('click', function () {
+    resetForm();
     window.mainElements.mainMapPin.addEventListener('mouseup', activatePageAfterReset);
   });
+
+  window.reset = {
+    resetForm: resetForm,
+  };
+
 })();

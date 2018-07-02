@@ -123,7 +123,7 @@
 
         <fieldset class="ad-form__element ad-form__element--wide">
           <label class="ad-form__label" for="address">Адрес</label>
-          <input id="address" name="address" type="text" disabled>
+          <input id="address" name="address" type="text" readonly>
         </fieldset>
 
         <fieldset class="ad-form__element">
@@ -229,6 +229,9 @@
     <div class="success hidden">
       <p class="success__message">Ваше объявление<br>успешно размещено!</p>
     </div>
+    <div class="error hidden">
+      <p class="error__message"></p>
+    </div>
   </main>
 
   <footer class="footer container">
@@ -285,9 +288,9 @@
   <script src="js/main-elements.js"></script>
   <script src="js/constants.js"></script>
   <script src="js/backend.js"></script>
+  <script src="js/main-pin.js"></script>
   <script src="js/form.js"></script>
   <script src="js/map.js"></script>
-  <script src="js/main-pin.js"></script>
   <script src="js/reset.js"></script>
 
 </body>
