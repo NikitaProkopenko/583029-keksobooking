@@ -171,8 +171,29 @@
   window.mainElements.mainMapPin.addEventListener('mouseup', activatePage);
 
   var sendButton = window.mainElements.adForm.querySelector('.ad-form__submit');
-  sendButton.addEventListener('click', function () {
-    window.backend.uploadData();
+
+  sendButton.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    var formData = new FormData(document.querySelector('.ad-form'));
+
+    window.backend.uploadData(formData, function (status) {
+      if (status) {
+        var successWindow = document.querySelector('.success');
+        successWindow.classList.remove('hidden');
+        window.reset.resetForm();
+        setTimeout(function () {
+          successWindow.classList.add('hidden');
+        }, 3000);
+      }
+    }, function (error) {
+      var errorWindow = document.querySelector('.error');
+      var errorMessage = errorWindow.querySelector('.error__message');
+      errorMessage.innerText = error;
+      errorWindow.classList.remove('hidden');
+      setTimeout(function () {
+        errorWindow.classList.add('hidden');
+      }, 3000);
+    });
   });
 
   window.map = {
