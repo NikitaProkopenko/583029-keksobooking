@@ -11,7 +11,7 @@
 
     var pinBreakPoints = {
       minX: 0,
-      maxX: 1200,
+      maxX: 1136,
       minY: 130,
       maxY: 630,
     };
@@ -53,7 +53,7 @@
         window.mainElements.mainMapPin.style.left = pinBreakPoints.minX + 'px';
         updatedCoordinateX = pinBreakPoints.minX;
       } else if (window.mainElements.mainMapPin.offsetLeft - shift.x > pinBreakPoints.maxX) {
-        window.mainElements.mainMapPin.style.left = pinBreakPoints.maxX - window.map.mainMapPinParams.width + 'px';
+        window.mainElements.mainMapPin.style.left = pinBreakPoints.maxX + 'px';
         updatedCoordinateX = pinBreakPoints.maxX;
       } else {
         window.mainElements.mainMapPin.style.left = (window.mainElements.mainMapPin.offsetLeft - shift.x) + 'px';
