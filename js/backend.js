@@ -44,17 +44,17 @@
     return xhr;
   };
 
-  var downloadData = function (loadHandler, errorHandler) {
+  function downloadData(loadHandler, errorHandler) {
     var xhr = createXHR(loadHandler, errorHandler);
     xhr.open('GET', URL_DOWNLOAD_DATA);
     xhr.send();
-  };
+  }
 
-  var uploadData = function (data, loadHandler, errorHandler) {
+  function uploadData(data, loadHandler, errorHandler) {
     var xhr = createXHR(loadHandler, errorHandler);
     xhr.open('POST', URL_UPLOAD_DATA);
     xhr.send(data);
-  };
+  }
 
   window.backend = {
     downloadData: downloadData,
