@@ -177,22 +177,24 @@
     var formData = new FormData(document.querySelector('.ad-form'));
 
     window.backend.uploadData(formData, function (status) {
+      function hideSuccessWindow() {
+        successWindow.classList.add('hidden');
+      }
       if (status) {
         var successWindow = document.querySelector('.success');
         successWindow.classList.remove('hidden');
         window.reset.resetForm();
-        setTimeout(function () {
-          successWindow.classList.add('hidden');
-        }, 3000);
+        setTimeout(hideSuccessWindow(), 3000);
       }
     }, function (error) {
       var errorWindow = document.querySelector('.error');
       var errorMessage = errorWindow.querySelector('.error__message');
       errorMessage.innerText = error;
       errorWindow.classList.remove('hidden');
-      setTimeout(function () {
+      function showErrorWindow() {
         errorWindow.classList.add('hidden');
-      }, 3000);
+      }
+      setTimeout(showErrorWindow(), 3000);
     });
   });
 
