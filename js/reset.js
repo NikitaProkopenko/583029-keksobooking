@@ -24,7 +24,7 @@
     window.mainElements.adForm.classList.remove('ad-form--disabled');
     window.map.fillAddressCoordinate('active');
     window.backend.downloadData(function (data) {
-      window.map.createPin(data);
+      window.mapPinRender.createPin(data);
     }, function (error) {
       console.log(error);
     });
@@ -54,6 +54,7 @@
 
   window.reset = {
     resetForm: resetForm,
+    activatePageAfterReset: activatePageAfterReset,
   };
 
 })();

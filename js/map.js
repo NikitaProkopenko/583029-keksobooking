@@ -33,27 +33,27 @@
 
   // Map pin creation
 
-  function createPin(offerPinObject) {
-    var mapPins = window.mainElements.map.querySelector('.map__pins');
-    var similarPinTemplate = document.querySelector('template').content.querySelector('.map__pin');
-    var fragment = document.createDocumentFragment();
+  // function createPin(offerPinObject) {
+  //   var mapPins = window.mainElements.map.querySelector('.map__pins');
+  //   var similarPinTemplate = document.querySelector('template').content.querySelector('.map__pin');
+  //   var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < offerPinObject.length; i++) {
-      var mapPin = similarPinTemplate.cloneNode(true);
-      var mapPinImage = mapPin.querySelector('img');
-      mapPin.style.top = offerPinObject[i].location.y + 'px';
-      mapPin.style.left = offerPinObject[i].location.x + 'px';
+  //   for (var i = 0; i < offerPinObject.length; i++) {
+  //     var mapPin = similarPinTemplate.cloneNode(true);
+  //     var mapPinImage = mapPin.querySelector('img');
+  //     mapPin.style.top = offerPinObject[i].location.y + 'px';
+  //     mapPin.style.left = offerPinObject[i].location.x + 'px';
 
-      mapPin.addEventListener('click', pinClickHandler.bind(undefined, offerPinObject[i]));
+  //     mapPin.addEventListener('click', pinClickHandler.bind(undefined, offerPinObject[i]));
 
-      mapPinImage.src = offerPinObject[i].author.avatar;
-      mapPinImage.alt = offerPinObject[i].offer.title;
-      fragment.appendChild(mapPin);
-    }
+  //     mapPinImage.src = offerPinObject[i].author.avatar;
+  //     mapPinImage.alt = offerPinObject[i].offer.title;
+  //     fragment.appendChild(mapPin);
+  //   }
 
-    mapPins.appendChild(fragment);
-    return mapPins;
-  }
+  //   mapPins.appendChild(fragment);
+  //   return mapPins;
+  // }
 
   function pinClickHandler(offer) {
     createMapCardMainInfo(offer);
@@ -159,7 +159,7 @@
     window.mainElements.map.classList.remove('map--faded');
     window.mainElements.adForm.classList.remove('ad-form--disabled');
     window.backend.downloadData(function (data) {
-      createPin(data);
+      window.mapPinRender.createPin(data);
     }, function (error) {
       console.log(error);
     });
@@ -177,31 +177,36 @@
     var formData = new FormData(document.querySelector('.ad-form'));
 
     window.backend.uploadData(formData, function (status) {
-      function hideSuccessWindow() {
-        successWindow.classList.add('hidden');
-      }
+      // function hideSuccessWindow() {
+      //   successWindow.classList.add('hidden');
+      // }
       if (status) {
         var successWindow = document.querySelector('.success');
         successWindow.classList.remove('hidden');
         window.reset.resetForm();
-        setTimeout(hideSuccessWindow(), 3000);
+        setTimeout(function () {
+          successWindow.classList.add('hidden');
+        }, 3000);
       }
     }, function (error) {
       var errorWindow = document.querySelector('.error');
       var errorMessage = errorWindow.querySelector('.error__message');
       errorMessage.innerText = error;
       errorWindow.classList.remove('hidden');
-      function showErrorWindow() {
+      // function showErrorWindow() {
+      //   errorWindow.classList.add('hidden');
+      // }
+      setTimeout(function () {
         errorWindow.classList.add('hidden');
-      }
-      setTimeout(showErrorWindow(), 3000);
+      }, 3000);
+      window.mainElements.mainMapPin.addEventListener('mouseup', window.reset.activatePageAfterReset);
     });
   });
 
   window.map = {
     fillAddressCoordinate: fillAddressCoordinate,
-    createPin: createPin,
     mainMapPinParams: mainMapPinParams,
+    pinClickHandler: pinClickHandler,
   };
 
 })();
