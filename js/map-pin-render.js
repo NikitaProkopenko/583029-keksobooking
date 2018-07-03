@@ -12,7 +12,7 @@
       mapPin.style.top = offerPinObject[i].location.y + 'px';
       mapPin.style.left = offerPinObject[i].location.x + 'px';
 
-      mapPin.addEventListener('click', window.map.pinClickHandler.bind(undefined, offerPinObject[i]));
+      mapPin.addEventListener('click', window.mapPinRender.pinClickHandler.bind(undefined, offerPinObject[i]));
 
       mapPinImage.src = offerPinObject[i].author.avatar;
       mapPinImage.alt = offerPinObject[i].offer.title;
@@ -23,8 +23,13 @@
     return mapPins;
   }
 
+  function pinClickHandler(offer) {
+    window.mapCardRender.createMapCardMainInfo(offer);
+  }
+
   window.mapPinRender = {
     createPin: createPin,
+    pinClickHandler: pinClickHandler,
   };
 
 })();

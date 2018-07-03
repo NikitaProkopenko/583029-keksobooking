@@ -29,6 +29,13 @@
 
   var ESCAPE = 'Escape';
 
+  var CARD_PHOTO_PARAMS = {
+    width: 45,
+    height: 40,
+    class: 'popup__photo',
+    alt: 'Фотография жилья',
+  };
+
   window.constants = {
     MAX_APPARTMENT_PRICE: MAX_APPARTMENT_PRICE,
     DEFAULT_SELECTED_ROOM: DEFAULT_SELECTED_ROOM,
@@ -36,6 +43,7 @@
     AppartmentPriceTypes: AppartmentPriceTypes,
     RoomCapacityDict: RoomCapacityDict,
     ESCAPE: ESCAPE,
+    CARD_PHOTO_PARAMS: CARD_PHOTO_PARAMS,
   };
 
 })();
