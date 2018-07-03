@@ -39,10 +39,10 @@
     window.mainElements.adForm.classList.remove('ad-form--disabled');
     window.backend.downloadData(function (data) {
       window.mapPinRender.createPin(data);
+      window.filter.filterData(data);
     }, function (error) {
       console.log(error);
     });
-
     window.mainElements.mainMapPin.removeEventListener('mouseup', activatePage);
   }
 
