@@ -45,15 +45,16 @@
   }
 
   var filteredPins = [];
-
+  var dataPins = [];
   function filterData(data) {
-    filteredPins = data;
+    dataPins = data;
     filters.addEventListener('change', filtersHandler);
   }
 
   function filtersHandler(evt) {
     var element = evt.target;
     var filterName = '';
+    filteredPins = dataPins;
 
     if (element.nodeName === 'SELECT') {
       var selectedOption = element.options[element.selectedIndex].value;
