@@ -36,6 +36,8 @@
     alt: 'Фотография жилья',
   };
 
+  var MAX_PINS_COUNT = 5;
+
   window.constants = {
     MAX_APPARTMENT_PRICE: MAX_APPARTMENT_PRICE,
     DEFAULT_SELECTED_ROOM: DEFAULT_SELECTED_ROOM,
@@ -44,6 +46,7 @@
     RoomCapacityDict: RoomCapacityDict,
     ESCAPE: ESCAPE,
     CARD_PHOTO_PARAMS: CARD_PHOTO_PARAMS,
+    MAX_PINS_COUNT: MAX_PINS_COUNT,
   };
 
 })();

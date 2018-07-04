@@ -38,10 +38,10 @@
     window.mainElements.map.classList.remove('map--faded');
     window.mainElements.adForm.classList.remove('ad-form--disabled');
     window.backend.downloadData(function (data) {
-      window.mapPinRender.createPin(data);
-      window.filter.filterData(data);
+      window.map.pinsObjects = data;
+      window.mapPinRender.createPin(window.map.pinsObjects);
     }, function (error) {
-      console.log(error);
+      window.resultWindow.showErrorWindow(error);
     });
     window.mainElements.mainMapPin.removeEventListener('mouseup', activatePage);
   }
@@ -56,35 +56,19 @@
     var formData = new FormData(document.querySelector('.ad-form'));
 
     window.backend.uploadData(formData, function (status) {
-      // function hideSuccessWindow() {
-      //   successWindow.classList.add('hidden');
-      // }
       if (status) {
-        var successWindow = document.querySelector('.success');
-        successWindow.classList.remove('hidden');
-        window.reset.resetForm();
-        setTimeout(function () {
-          successWindow.classList.add('hidden');
-        }, 3000);
+        window.resultWindow.successWindowHandler();
+        window.mainElements.mainMapPin.addEventListener('mouseup', window.reset.activatePageAfterReset);
       }
     }, function (error) {
-      var errorWindow = document.querySelector('.error');
-      var errorMessage = errorWindow.querySelector('.error__message');
-      errorMessage.innerText = error;
-      errorWindow.classList.remove('hidden');
-      // function showErrorWindow() {
-      //   errorWindow.classList.add('hidden');
-      // }
-      setTimeout(function () {
-        errorWindow.classList.add('hidden');
-      }, 3000);
-      window.mainElements.mainMapPin.addEventListener('mouseup', window.reset.activatePageAfterReset);
+      window.resultWindow.showErrorWindow(error);
     });
   });
 
   window.map = {
     fillAddressCoordinate: fillAddressCoordinate,
     mainMapPinParams: mainMapPinParams,
+    pinsObjects: []
   };
 
 })();

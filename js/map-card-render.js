@@ -69,6 +69,7 @@
   }
 
   function closeCard(card) {
+    window.mapPinRender.removePinActive();
     window.mainElements.map.removeChild(card);
   }
 
