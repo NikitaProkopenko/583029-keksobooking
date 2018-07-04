@@ -2,6 +2,7 @@
 
 (function () {
   function createPin(offerPinObject) {
+    window.reset.removePin();
     var mapPins = window.mainElements.map.querySelector('.map__pins');
     var similarPinTemplate = document.querySelector('template').content.querySelector('.map__pin');
     var fragment = document.createDocumentFragment();

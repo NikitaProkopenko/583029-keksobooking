@@ -5,11 +5,16 @@
   var adFormReset = window.mainElements.adForm.querySelector('.ad-form__reset');
 
   function removePin() {
+    var currentCard = window.mainElements.map.querySelector('.map__card');
     var mapPins = window.mainElements.map.querySelector('.map__pins');
     var fullPinList = mapPins.querySelectorAll('button', 'map-pin');
 
     for (var i = 1; i < fullPinList.length; i++) {
       mapPins.removeChild(fullPinList[i]);
+    }
+
+    if (currentCard) {
+      window.mainElements.map.removeChild(currentCard);
     }
   }
 
@@ -55,6 +60,7 @@
   window.reset = {
     resetForm: resetForm,
     activatePageAfterReset: activatePageAfterReset,
+    removePin: removePin,
   };
 
 })();
