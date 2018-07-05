@@ -31,7 +31,7 @@
     window.backend.downloadData(function (data) {
       window.mapPinRender.createPin(data);
     }, function (error) {
-      console.log(error);
+      window.resultWindow.showErrorWindow(error);
     });
 
     window.mainElements.mainMapPin.removeEventListener('mouseup', activatePageAfterReset);

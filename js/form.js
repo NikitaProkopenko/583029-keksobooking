@@ -2,6 +2,12 @@
 
 (function () {
 
+  var ValidityValues = {
+    tooShort: 'Заголовок должен состоять минимум из 30 символов.',
+    tooLong: 'Заголовок состоит максимум из 100 символов.',
+    missing: 'Обязательное поле.',
+  };
+
   var adFormTitle = window.mainElements.adForm.querySelector('#title');
   var adFormPrice = window.mainElements.adForm.querySelector('#price');
   var adFormType = window.mainElements.adForm.querySelector('#type');
@@ -15,11 +21,11 @@
     var target = evt.target;
 
     if (target.validity.tooShort) {
-      target.setCustomValidity('Заголовок должен состоять минимум из 30 символов.');
+      target.setCustomValidity(ValidityValues.tooShort);
     } else if (target.validity.tooLong) {
-      target.setCustomValidity('Заголовок состоит максимум из 100 символов.');
+      target.setCustomValidity(ValidityValues.tooLong);
     } else if (target.validity.valueMissing) {
-      target.setCustomValidity('Обязательное поле.');
+      target.setCustomValidity(ValidityValues.missing);
     } else {
       target.setCustomValidity('');
       target.style = '';
@@ -33,7 +39,7 @@
       target.setCustomValidity('Цена не должна превышать' + window.constants.MAX_APPARTMENT_PRICE + ' руб.');
       target.style = invalidMarker;
     } else if (target.validity.valueMissing) {
-      target.setCustomValidity('Обязательное поле.');
+      target.setCustomValidity(ValidityValues.missing);
       target.style = invalidMarker;
     } else if (target.value < target.min) {
       target.setCustomValidity('Минимальная цена ' + target.min + ' руб.');

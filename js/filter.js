@@ -2,13 +2,6 @@
 
 (function () {
 
-  var filtresForm = document.querySelector('.map__filters');
-  var houseType = filtresForm.querySelector('#housing-type');
-  var housePrice = filtresForm.querySelector('#housing-price');
-  var houseRooms = filtresForm.querySelector('#housing-rooms');
-  var houseGuests = filtresForm.querySelector('#housing-guests');
-  var feauturesList = filtresForm.querySelectorAll('input[name="features"]');
-
   var PriceTypes = {
     MIDDLE: 'middle',
     LOW: 'low',
@@ -20,12 +13,18 @@
     MAX: 50000,
   };
 
+  var filtresForm = document.querySelector('.map__filters');
+  var houseType = filtresForm.querySelector('#housing-type');
+  var housePrice = filtresForm.querySelector('#housing-price');
+  var houseRooms = filtresForm.querySelector('#housing-rooms');
+  var houseGuests = filtresForm.querySelector('#housing-guests');
+  var feauturesList = filtresForm.querySelectorAll('input[name="features"]');
+
   function compareValues(filterValue, compareValue) {
-    return filterValue === 'any' || compareValue === filterValue;
+    return filterValue === window.constants.FILTER_ANY || compareValue === filterValue;
   }
 
   function compareByPrice(filterValue, offerPrice) {
-
     switch (filterValue) {
       case PriceTypes.MIDDLE:
         return offerPrice >= PriceSteps.MIN && offerPrice < PriceSteps.MAX;
@@ -38,7 +37,7 @@
     }
   }
 
-  var compareFeatures = function (filteredFetures, comparedValues) {
+  function compareFeatures(filteredFetures, comparedValues) {
     for (var i = 0; i < filteredFetures.length; i++) {
       if (!comparedValues.includes(filteredFetures[i])) {
         return false;
@@ -46,9 +45,9 @@
     }
 
     return true;
-  };
+  }
 
-  var setPacketFiltres = function () {
+  function setPacketFiltres() {
 
     var feauturesArr = Array.from(feauturesList);
     var selectedFeautures = feauturesArr.filter(function (it) {
@@ -81,7 +80,7 @@
 
       return true;
     });
-  };
+  }
 
   function onFiltresFormChange() {
     window.reset.removePin();

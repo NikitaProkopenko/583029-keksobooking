@@ -25,7 +25,7 @@
     errorWindow.classList.remove('hidden');
     setTimeout(function () {
       errorWindow.classList.add('hidden');
-    }, 3000);
+    }, window.constants.WINDOW_TIMER);
   }
 
   window.resultWindow = {

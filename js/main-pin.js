@@ -25,7 +25,7 @@
       addressField.value = x + ', ' + y;
     }
 
-    var onMouseMove = function (moveEvt) {
+    function onMouseMove(moveEvt) {
       moveEvt.preventDefault();
 
       var shift = {
@@ -61,9 +61,9 @@
       }
 
       updateAddressCoordinate(updatedCoordinateX, updatedCoordinateY);
-    };
+    }
 
-    var onMouseUp = function (upEvt) {
+    function onMouseUp(upEvt) {
       upEvt.preventDefault();
 
       document.removeEventListener('mousemove', onMouseMove);
@@ -76,7 +76,7 @@
         };
         window.mainElements.mainMapPin.addEventListener('click', onClickPreventDefault);
       }
-    };
+    }
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);

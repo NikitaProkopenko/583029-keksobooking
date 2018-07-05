@@ -12,7 +12,7 @@
     SERVER_ERROR: 500
   };
 
-  var createXHR = function (loadHandler, errorHandler) {
+  function createXHR(loadHandler, errorHandler) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.timeout = TIMEOUT;
@@ -42,7 +42,7 @@
     });
 
     return xhr;
-  };
+  }
 
   function downloadData(loadHandler, errorHandler) {
     var xhr = createXHR(loadHandler, errorHandler);
