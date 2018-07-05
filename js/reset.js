@@ -27,7 +27,6 @@
     window.form.allowFormArray(window.mainElements.pageFieldsetArray);
     window.mainElements.map.classList.remove('map--faded');
     window.mainElements.adForm.classList.remove('ad-form--disabled');
-    window.map.fillAddressCoordinate();
     window.backend.downloadData(function (data) {
       window.mapPinRender.createPin(data);
     }, function (error) {

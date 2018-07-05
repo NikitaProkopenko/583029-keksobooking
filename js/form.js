@@ -15,20 +15,22 @@
   var adFormTimeOut = window.mainElements.adForm.querySelector('#timeout');
   var adFormRoomNumber = window.mainElements.adForm.querySelector('#room_number');
   var adFormCapacity = window.mainElements.adForm.querySelector('#capacity');
-  var invalidMarker = 'border: 3px solid red';
 
   adFormTitle.addEventListener('invalid', function (evt) {
     var target = evt.target;
 
     if (target.validity.tooShort) {
       target.setCustomValidity(ValidityValues.tooShort);
+      target.classList.add('invalid-marker');
     } else if (target.validity.tooLong) {
       target.setCustomValidity(ValidityValues.tooLong);
+      target.classList.add('invalid-marker');
     } else if (target.validity.valueMissing) {
       target.setCustomValidity(ValidityValues.missing);
+      target.classList.add('invalid-marker');
     } else {
       target.setCustomValidity('');
-      target.style = '';
+      target.classList.remove('invalid-marker');
     }
   });
 
@@ -37,15 +39,16 @@
 
     if (target.value > window.constants.MAX_APPARTMENT_PRICE) {
       target.setCustomValidity('Цена не должна превышать' + window.constants.MAX_APPARTMENT_PRICE + ' руб.');
-      target.style = invalidMarker;
+      target.classList.add('invalid-marker');
     } else if (target.validity.valueMissing) {
       target.setCustomValidity(ValidityValues.missing);
-      target.style = invalidMarker;
+      target.classList.add('invalid-marker');
     } else if (target.value < target.min) {
       target.setCustomValidity('Минимальная цена ' + target.min + ' руб.');
+      target.classList.add('invalid-marker');
     } else {
       target.setCustomValidity('');
-      target.style = '';
+      target.classList.remove('invalid-marker');
     }
   });
 
@@ -125,9 +128,9 @@
   adFormCapacity.addEventListener('change', function (evt) {
     var target = evt.target;
     if (adFormRoomNumber.value !== target.value) {
-      adFormRoomNumber.style = invalidMarker;
+      adFormRoomNumber.classList.add('invalid-marker');
     } else {
-      adFormRoomNumber.style = '';
+      adFormRoomNumber.classList.remove('invalid-marker');
     }
   });
 
