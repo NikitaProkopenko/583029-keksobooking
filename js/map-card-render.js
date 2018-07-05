@@ -55,7 +55,7 @@
     createMapCardFeature(offerObject, newOfferCard);
     createMapCardPhotos(offerObject, newOfferCard);
 
-    document.addEventListener('keydown', removeCardHandler);
+    document.addEventListener('keydown', onMapCardRemove);
 
     newOfferCard.querySelector('.popup__close').addEventListener('click', closeCardHandler);
 
@@ -73,13 +73,13 @@
     window.mainElements.map.removeChild(card);
   }
 
-  function removeCardHandler(evt) {
+  function onMapCardRemove(evt) {
     if (evt.key === window.constants.ESCAPE) {
       var currentCard = window.mainElements.map.querySelector('.map__card');
       if (currentCard) {
         closeCard(currentCard);
       }
-      document.removeEventListener('keydown', removeCardHandler);
+      document.removeEventListener('keydown', onMapCardRemove);
     }
   }
 

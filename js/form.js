@@ -114,13 +114,13 @@
     }
   }
 
-  function formRoomNumberHandler(evt) {
+  function onFormRoomNumberChange(evt) {
     setCapacity(evt.currentTarget.value);
   }
 
   setCapacity(window.constants.DEFAULT_SELECTED_ROOM);
 
-  adFormRoomNumber.addEventListener('change', formRoomNumberHandler);
+  adFormRoomNumber.addEventListener('change', onFormRoomNumberChange);
 
   adFormCapacity.addEventListener('change', function (evt) {
     var target = evt.target;

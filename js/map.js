@@ -3,16 +3,16 @@
 (function () {
 
   var mapPinParams = {
-    widthToCenter: 25,
-    height: 70,
+    WIDTH_TO_CENTER: 25,
+    HEIGHT: 70,
   };
 
   var mainMapPinParams = {
-    widthToCenter: 32,
-    width: 64,
-    height: 84,
-    startX: 570,
-    startY: 375,
+    WIDTH_TO_CENTER: 32,
+    WIDTH: 64,
+    HEIGHT: 84,
+    START_X: 570,
+    START_Y: 375,
     coordinateX: window.mainElements.mainMapPin.offsetLeft,
     coordinateY: window.mainElements.mainMapPin.offsetTop,
   };
@@ -21,8 +21,8 @@
     var addressField = document.querySelector('#address');
     var addressCoordinate;
 
-    addressCoordinate = (mainMapPinParams.coordinateX + mainMapPinParams.widthToCenter) + ', '
-      + (mainMapPinParams.coordinateY - mapPinParams.height);
+    addressCoordinate = (mainMapPinParams.coordinateX + mainMapPinParams.WIDTH_TO_CENTER) + ', '
+      + (mainMapPinParams.coordinateY - mapPinParams.HEIGHT);
     addressField.value = addressCoordinate;
 
     return addressField;
