@@ -142,6 +142,7 @@
             name="price"
             type="number"
             placeholder="5000"
+            min="1000"
             max="1000000"
             required
           >
@@ -174,9 +175,9 @@
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="capacity">Количество мест</label>
           <select id="capacity" name="capacity">
-            <option value="3" selected>для 3 гостей</option>
+            <option value="3">для 3 гостей</option>
             <option value="2">для 2 гостей</option>
-            <option value="1">для 1 гостя</option>
+            <option value="1" selected>для 1 гостя</option>
             <option value="0">не для гостей</option>
           </select>
         </fieldset>
@@ -289,9 +290,12 @@
   <script src="js/constants.js"></script>
   <script src="js/backend.js"></script>
   <script src="js/main-pin.js"></script>
+  <script src="js/map-pin-render.js"></script>
+  <script src="js/map-card-render.js"></script>
+  <script src="js/result-window.js"></script>
   <script src="js/form.js"></script>
   <script src="js/map.js"></script>
   <script src="js/reset.js"></script>
-
+  <script src="js/filter.js"></script>
 </body>
 </html>
