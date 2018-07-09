@@ -23,6 +23,13 @@
     alt: 'Фотография жилья',
   };
 
+  var PIN_BREAK_POINTS = {
+    minX: 0,
+    maxX: 1136,
+    minY: 130,
+    maxY: 630,
+  };
+
   var AppartmentPriceTypes = {
     bungalo: 'bungalo',
     flat: 'flat',
@@ -46,6 +53,7 @@
     WINDOW_TIMER: WINDOW_TIMER,
     MIN_PRICE_PARAMETERS: MIN_PRICE_PARAMETERS,
     CARD_PHOTO_PARAMETERS: CARD_PHOTO_PARAMETERS,
+    PIN_BREAK_POINTS: PIN_BREAK_POINTS,
     AppartmentPriceTypes: AppartmentPriceTypes,
     RoomCapacityDict: RoomCapacityDict,
   };

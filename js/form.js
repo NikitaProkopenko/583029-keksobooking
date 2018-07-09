@@ -16,9 +16,8 @@
   var adFormRoomNumber = window.mainElements.adForm.querySelector('#room_number');
   var adFormCapacity = window.mainElements.adForm.querySelector('#capacity');
 
-  adFormTitle.addEventListener('invalid', function (evt) {
+  function onFormTitleInvalid(evt) {
     var target = evt.target;
-
     if (target.validity.tooShort) {
       target.setCustomValidity(ValidityValues.tooShort);
       target.classList.add('invalid-marker');
@@ -32,11 +31,10 @@
       target.setCustomValidity('');
       target.classList.remove('invalid-marker');
     }
-  });
+  }
 
-  adFormPrice.addEventListener('invalid', function (evt) {
+  function onFormPriceInvalid(evt) {
     var target = evt.target;
-
     if (target.value > window.constants.MAX_APPARTMENT_PRICE) {
       target.setCustomValidity('Цена не должна превышать' + window.constants.MAX_APPARTMENT_PRICE + ' руб.');
       target.classList.add('invalid-marker');
@@ -50,11 +48,9 @@
       target.setCustomValidity('');
       target.classList.remove('invalid-marker');
     }
-  });
+  }
 
-  adFormPrice.placeholder = window.constants.MIN_PRICE_PARAMETERS.flat;
-
-  adFormType.addEventListener('change', function (evt) {
+  function onFormTypeChange(evt) {
     var target = evt.target;
     var price = adFormPrice;
 
@@ -79,17 +75,17 @@
         price.min = window.constants.MIN_PRICE_PARAMETERS.flat;
         price.placeholder = window.constants.MIN_PRICE_PARAMETERS.flat;
     }
-  });
+  }
 
-  adFormTimeIn.addEventListener('change', function (evt) {
+  function onFormTimeInChange(evt) {
     var target = evt.target;
     adFormTimeOut.value = target.value;
-  });
+  }
 
-  adFormTimeOut.addEventListener('change', function (evt) {
+  function onFormTimeOutChange(evt) {
     var target = evt.target;
     adFormTimeIn.value = target.value;
-  });
+  }
 
   function disableFormsArray(array) {
     for (var i = 0; i < array.length; i++) {
@@ -123,20 +119,41 @@
 
   setCapacity(window.constants.DEFAULT_SELECTED_ROOM);
 
-  adFormRoomNumber.addEventListener('change', onFormRoomNumberChange);
-
-  adFormCapacity.addEventListener('change', function (evt) {
+  function onFormCapacityChange(evt) {
     var target = evt.target;
     if (adFormRoomNumber.value !== target.value) {
       adFormRoomNumber.classList.add('invalid-marker');
     } else {
       adFormRoomNumber.classList.remove('invalid-marker');
     }
-  });
+  }
+
+  function bindListeners() {
+    adFormTitle.addEventListener('invalid', onFormTitleInvalid);
+    adFormPrice.addEventListener('invalid', onFormPriceInvalid);
+    adFormType.addEventListener('change', onFormTypeChange);
+    adFormTimeIn.addEventListener('change', onFormTimeInChange);
+    adFormTimeOut.addEventListener('change', onFormTimeOutChange);
+    adFormRoomNumber.addEventListener('change', onFormRoomNumberChange);
+    adFormCapacity.addEventListener('change', onFormCapacityChange);
+  }
+
+  function removeListeners() {
+    adFormTitle.removeEventListener('invalid', onFormTitleInvalid);
+    adFormPrice.removeEventListener('invalid', onFormPriceInvalid);
+    adFormType.removeEventListener('change', onFormTypeChange);
+    adFormTimeIn.removeEventListener('change', onFormTimeInChange);
+    adFormTimeOut.removeEventListener('change', onFormTimeOutChange);
+    adFormRoomNumber.removeEventListener('change', onFormRoomNumberChange);
+    adFormCapacity.removeEventListener('change', onFormCapacityChange);
+    adFormPrice.placeholder = window.constants.MIN_PRICE_PARAMETERS.flat;
+  }
 
   window.form = {
     disableFormsArray: disableFormsArray,
     allowFormArray: allowFormArray,
+    bindListeners: bindListeners,
+    removeListeners: removeListeners,
   };
 
 })();

@@ -41,16 +41,16 @@
     }, function (error) {
       window.resultWindow.showErrorWindow(error);
     });
-    window.mainElements.mainMapPin.removeEventListener('mouseup', activatePage);
+    window.form.bindListeners();
   }
 
-  window.onload = preparePage();
-  window.mainElements.mainMapPin.addEventListener('mouseup', activatePage);
+  preparePage();
 
   window.map = {
     fillAddressCoordinate: fillAddressCoordinate,
     mainMapPinParams: mainMapPinParams,
-    pinsObjects: []
+    pinsObjects: [],
+    activatePage: activatePage,
   };
 
 })();

@@ -32,9 +32,9 @@
   }
 
   function removePinActive() {
-    var activePins = window.mainElements.mapPins.querySelectorAll('.map__pin--active');
-    for (var i = 0; i < activePins.length; i++) {
-      activePins[i].classList.remove('map__pin--active');
+    var activePin = window.mainElements.mapPins.querySelector('.map__pin--active');
+    if (activePin) {
+      activePin.classList.remove('map__pin--active');
     }
   }
 

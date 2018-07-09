@@ -32,6 +32,7 @@
     });
 
     window.mainElements.mainMapPin.removeEventListener('mouseup', activatePageAfterReset);
+    window.form.bindListeners();
   }
 
   function resetForm() {
@@ -42,6 +43,7 @@
     window.form.disableFormsArray(window.mainElements.pageFieldsetArray);
     mainPinCoordinateReset();
     removePin();
+    window.form.removeListeners();
   }
 
   adFormReset.addEventListener('click', function () {
