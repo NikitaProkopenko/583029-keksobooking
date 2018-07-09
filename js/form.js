@@ -33,23 +33,6 @@
     }
   }
 
-  function onFormPriceInvalid(evt) {
-    var target = evt.target;
-    if (target.value > window.constants.MAX_APPARTMENT_PRICE) {
-      target.setCustomValidity('Цена не должна превышать' + window.constants.MAX_APPARTMENT_PRICE + ' руб.');
-      target.classList.add('invalid-marker');
-    } else if (target.validity.valueMissing) {
-      target.setCustomValidity(ValidityValues.missing);
-      target.classList.add('invalid-marker');
-    } else if (target.value < target.min) {
-      target.setCustomValidity('Минимальная цена ' + target.min + ' руб.');
-      target.classList.add('invalid-marker');
-    } else {
-      target.setCustomValidity('');
-      target.classList.remove('invalid-marker');
-    }
-  }
-
   function onFormTypeChange(evt) {
     var target = evt.target;
     var price = adFormPrice;
@@ -74,6 +57,23 @@
       default:
         price.min = window.constants.MIN_PRICE_PARAMETERS.flat;
         price.placeholder = window.constants.MIN_PRICE_PARAMETERS.flat;
+    }
+  }
+
+  function onFormPriceInvalid(evt) {
+    var target = evt.target;
+    if (target.value > window.constants.MAX_APPARTMENT_PRICE) {
+      target.setCustomValidity('Цена не должна превышать ' + window.constants.MAX_APPARTMENT_PRICE + ' руб.');
+      target.classList.add('invalid-marker');
+    } else if (target.validity.valueMissing) {
+      target.setCustomValidity(ValidityValues.missing);
+      target.classList.add('invalid-marker');
+    } else if (target.value < target.min) {
+      target.setCustomValidity('Минимальная цена ' + target.min + ' руб.');
+      target.classList.add('invalid-marker');
+    } else {
+      target.setCustomValidity('');
+      target.classList.remove('invalid-marker');
     }
   }
 
@@ -130,8 +130,8 @@
 
   function bindListeners() {
     adFormTitle.addEventListener('invalid', onFormTitleInvalid);
-    adFormPrice.addEventListener('invalid', onFormPriceInvalid);
     adFormType.addEventListener('change', onFormTypeChange);
+    adFormPrice.addEventListener('invalid', onFormPriceInvalid);
     adFormTimeIn.addEventListener('change', onFormTimeInChange);
     adFormTimeOut.addEventListener('change', onFormTimeOutChange);
     adFormRoomNumber.addEventListener('change', onFormRoomNumberChange);
@@ -140,8 +140,8 @@
 
   function removeListeners() {
     adFormTitle.removeEventListener('invalid', onFormTitleInvalid);
-    adFormPrice.removeEventListener('invalid', onFormPriceInvalid);
     adFormType.removeEventListener('change', onFormTypeChange);
+    adFormPrice.removeEventListener('invalid', onFormPriceInvalid);
     adFormTimeIn.removeEventListener('change', onFormTimeInChange);
     adFormTimeOut.removeEventListener('change', onFormTimeOutChange);
     adFormRoomNumber.removeEventListener('change', onFormRoomNumberChange);
@@ -154,6 +154,8 @@
     allowFormArray: allowFormArray,
     bindListeners: bindListeners,
     removeListeners: removeListeners,
+    adFormTitle: adFormTitle,
+    adFormPrice: adFormPrice,
   };
 
 })();

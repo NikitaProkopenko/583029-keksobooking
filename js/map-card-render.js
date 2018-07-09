@@ -84,9 +84,9 @@
 
   function onMapCardRemove(evt) {
     if (evt.key === window.constants.ESCAPE) {
-
-      if (window.mainElements.currentCard) {
-        closeCard(window.mainElements.currentCard);
+      var currentCard = window.mainElements.map.querySelector('.map__card');
+      if (currentCard) {
+        closeCard(currentCard);
       }
       document.removeEventListener('keydown', onMapCardRemove);
     }

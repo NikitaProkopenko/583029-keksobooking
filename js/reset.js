@@ -5,14 +5,15 @@
   var adFormReset = window.mainElements.adForm.querySelector('.ad-form__reset');
 
   function removePin() {
+    var currentCard = window.mainElements.map.querySelector('.map__card');
     var fullPinList = window.mainElements.mapPins.querySelectorAll('button', 'map-pin');
 
     for (var i = 1; i < fullPinList.length; i++) {
       window.mainElements.mapPins.removeChild(fullPinList[i]);
     }
 
-    if (window.mainElements.currentCard) {
-      window.mainElements.map.removeChild(window.mainElements.currentCard);
+    if (currentCard) {
+      window.mainElements.map.removeChild(currentCard);
     }
   }
 

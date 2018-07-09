@@ -2,16 +2,14 @@
 
 (function () {
 
-  var adTitleField = window.mainElements.adForm.querySelector('#title');
-
   window.mainElements.adForm.addEventListener('submit', function (evt) {
-    if (adTitleField.validity.valid) {
+    if (window.form.adFormTitle.validity.valid && window.form.adFormPrice.validity.valid) {
       evt.preventDefault();
-      sendingSuccessForm(evt);
+      sendingSuccessForm();
     }
   });
 
-  function sendingSuccessForm(evt) {
+  function sendingSuccessForm() {
     var formData = new FormData(document.querySelector('.ad-form'));
     window.backend.uploadData(formData, function (status) {
       if (status) {
