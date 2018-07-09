@@ -49,8 +49,8 @@
 
   function setPacketFiltres() {
 
-    var feauturesArr = Array.from(feauturesList);
-    var selectedFeautures = feauturesArr.filter(function (it) {
+    var feauturesArray = Array.from(feauturesList);
+    var selectedFeautures = feauturesArray.filter(function (it) {
       return it.checked;
     }).map(function (it) {
       return it.value;

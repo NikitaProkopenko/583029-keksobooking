@@ -4,7 +4,7 @@
   window.mainElements.mainMapPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
-    var startCoords = {
+    var startCoordinates = {
       x: evt.clientX,
       y: evt.clientY
     };
@@ -21,19 +21,18 @@
     var updatedCoordinateY;
 
     function updateAddressCoordinate(x, y) {
-      var addressField = document.querySelector('#address');
-      addressField.value = x + ', ' + y;
+      window.mainElements.addressField.value = x + ', ' + y;
     }
 
     function onMouseMove(moveEvt) {
       moveEvt.preventDefault();
 
       var shift = {
-        x: startCoords.x - moveEvt.clientX,
-        y: startCoords.y - moveEvt.clientY
+        x: startCoordinates.x - moveEvt.clientX,
+        y: startCoordinates.y - moveEvt.clientY
       };
 
-      startCoords = {
+      startCoordinates = {
         x: moveEvt.clientX,
         y: moveEvt.clientY
       };

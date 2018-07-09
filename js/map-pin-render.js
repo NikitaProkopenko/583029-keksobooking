@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var mapPins = window.mainElements.map.querySelector('.map__pins');
 
   function createPin(offerPinObject) {
     window.reset.removePin();
@@ -22,8 +21,8 @@
       fragment.appendChild(mapPin);
     }
 
-    mapPins.appendChild(fragment);
-    return mapPins;
+    window.mainElements.mapPins.appendChild(fragment);
+    return window.mainElements.mapPins;
   }
 
   function pinClickHandler(offer, mapPin) {
@@ -33,9 +32,9 @@
   }
 
   function removePinActive() {
-    var activePin = mapPins.querySelectorAll('.map__pin--active');
-    for (var i = 0; i < activePin.length; i++) {
-      activePin[i].classList.remove('map__pin--active');
+    var activePins = window.mainElements.mapPins.querySelectorAll('.map__pin--active');
+    for (var i = 0; i < activePins.length; i++) {
+      activePins[i].classList.remove('map__pin--active');
     }
   }
 

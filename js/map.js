@@ -18,14 +18,12 @@
   };
 
   function fillAddressCoordinate() {
-    var addressField = document.querySelector('#address');
     var addressCoordinate;
 
     addressCoordinate = (mainMapPinParams.coordinateX + mainMapPinParams.WIDTH_TO_CENTER) + ', '
       + (mainMapPinParams.coordinateY - mapPinParams.HEIGHT);
-    addressField.value = addressCoordinate;
+    window.mainElements.addressField.value = addressCoordinate;
 
-    return addressField;
   }
 
   function preparePage() {

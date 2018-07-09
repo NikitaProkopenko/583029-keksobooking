@@ -25,10 +25,10 @@
 
     for (var y = 0; y < offerPhotoObject.offer.photos.length; y++) {
       var photo = similarPhoto.cloneNode(true);
-      photo.alt = window.constants.CARD_PHOTO_PARAMS.alt;
-      photo.width = window.constants.CARD_PHOTO_PARAMS.width;
-      photo.height = window.constants.CARD_PHOTO_PARAMS.height;
-      photo.className = window.constants.CARD_PHOTO_PARAMS.class;
+      photo.alt = window.constants.CARD_PHOTO_PARAMETERS.alt;
+      photo.width = window.constants.CARD_PHOTO_PARAMETERS.width;
+      photo.height = window.constants.CARD_PHOTO_PARAMETERS.height;
+      photo.className = window.constants.CARD_PHOTO_PARAMETERS.class;
       photo.src = offerPhotoObject.offer.photos[y];
       var photoList = offerPhotoCard.querySelector('.popup__photos').appendChild(photo);
     }
@@ -75,9 +75,9 @@
 
   function onMapCardRemove(evt) {
     if (evt.key === window.constants.ESCAPE) {
-      var currentCard = window.mainElements.map.querySelector('.map__card');
-      if (currentCard) {
-        closeCard(currentCard);
+
+      if (window.mainElements.currentCard) {
+        closeCard(window.mainElements.currentCard);
       }
       document.removeEventListener('keydown', onMapCardRemove);
     }

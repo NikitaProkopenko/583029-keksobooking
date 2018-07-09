@@ -52,7 +52,7 @@
     }
   });
 
-  adFormPrice.placeholder = window.constants.MIN_PRICE_PARAMS.flat;
+  adFormPrice.placeholder = window.constants.MIN_PRICE_PARAMETERS.flat;
 
   adFormType.addEventListener('change', function (evt) {
     var target = evt.target;
@@ -60,24 +60,24 @@
 
     switch (target.value) {
       case window.constants.AppartmentPriceTypes.bungalo:
-        price.min = window.constants.MIN_PRICE_PARAMS.bungalo;
-        price.placeholder = window.constants.MIN_PRICE_PARAMS.bungalo;
+        price.min = window.constants.MIN_PRICE_PARAMETERS.bungalo;
+        price.placeholder = window.constants.MIN_PRICE_PARAMETERS.bungalo;
         break;
       case window.constants.AppartmentPriceTypes.flat:
-        price.min = window.constants.MIN_PRICE_PARAMS.flat;
-        price.placeholder = window.constants.MIN_PRICE_PARAMS.flat;
+        price.min = window.constants.MIN_PRICE_PARAMETERS.flat;
+        price.placeholder = window.constants.MIN_PRICE_PARAMETERS.flat;
         break;
       case window.constants.AppartmentPriceTypes.house:
-        price.min = window.constants.MIN_PRICE_PARAMS.house;
-        price.placeholder = window.constants.MIN_PRICE_PARAMS.house;
+        price.min = window.constants.MIN_PRICE_PARAMETERS.house;
+        price.placeholder = window.constants.MIN_PRICE_PARAMETERS.house;
         break;
       case window.constants.AppartmentPriceTypes.palace:
-        price.min = window.constants.MIN_PRICE_PARAMS.palace;
-        price.placeholder = window.constants.MIN_PRICE_PARAMS.palace;
+        price.min = window.constants.MIN_PRICE_PARAMETERS.palace;
+        price.placeholder = window.constants.MIN_PRICE_PARAMETERS.palace;
         break;
       default:
-        price.min = window.constants.MIN_PRICE_PARAMS.flat;
-        price.placeholder = window.constants.MIN_PRICE_PARAMS.flat;
+        price.min = window.constants.MIN_PRICE_PARAMETERS.flat;
+        price.placeholder = window.constants.MIN_PRICE_PARAMETERS.flat;
     }
   });
 
