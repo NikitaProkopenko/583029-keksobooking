@@ -14,7 +14,7 @@
       mapPin.style.top = slicedOffers[i].location.y + 'px';
       mapPin.style.left = slicedOffers[i].location.x + 'px';
 
-      mapPin.addEventListener('click', window.mapPinRender.pinClickHandler.bind(undefined, slicedOffers[i], mapPin));
+      mapPin.addEventListener('click', window.mapPinRender.onPinClick.bind(undefined, slicedOffers[i], mapPin));
 
       mapPinImage.src = slicedOffers[i].author.avatar;
       mapPinImage.alt = slicedOffers[i].offer.title;
@@ -25,7 +25,7 @@
     return window.mainElements.mapPins;
   }
 
-  function pinClickHandler(offer, mapPin) {
+  function onPinClick(offer, mapPin) {
     window.mapCardRender.createMapCardMainInfo(offer);
     removePinActive();
     mapPin.classList.add('map__pin--active');
@@ -40,7 +40,7 @@
 
   window.mapPinRender = {
     createPin: createPin,
-    pinClickHandler: pinClickHandler,
+    onPinClick: onPinClick,
     removePinActive: removePinActive,
   };
 

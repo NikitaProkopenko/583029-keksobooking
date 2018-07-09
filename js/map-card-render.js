@@ -66,7 +66,7 @@
 
     document.addEventListener('keydown', onMapCardRemove);
 
-    newOfferCard.querySelector('.popup__close').addEventListener('click', closeCardHandler);
+    newOfferCard.querySelector('.popup__close').addEventListener('click', onCardClose);
 
     var existCard = window.mainElements.map.querySelector('.map__card');
 
@@ -92,7 +92,7 @@
     }
   }
 
-  function closeCardHandler(evt) {
+  function onCardClose(evt) {
     closeCard(evt.currentTarget.parentNode);
   }
 
