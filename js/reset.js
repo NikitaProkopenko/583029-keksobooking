@@ -6,11 +6,10 @@
 
   function removePin() {
     var currentCard = window.mainElements.map.querySelector('.map__card');
-    var mapPins = window.mainElements.map.querySelector('.map__pins');
-    var fullPinList = mapPins.querySelectorAll('button', 'map-pin');
+    var fullPinList = window.mainElements.mapPins.querySelectorAll('button', 'map-pin');
 
     for (var i = 1; i < fullPinList.length; i++) {
-      mapPins.removeChild(fullPinList[i]);
+      window.mainElements.mapPins.removeChild(fullPinList[i]);
     }
 
     if (currentCard) {
@@ -33,28 +32,43 @@
       window.resultWindow.showErrorWindow(error);
     });
 
-    window.mainElements.mainMapPin.removeEventListener('mouseup', activatePageAfterReset);
+    window.mainElements.mainMapPin.removeEventListener('mouseup', onFormReset);
+    window.form.bindListeners();
   }
 
   function resetForm() {
     window.mainElements.adForm.reset();
+    window.mainElements.mapFiltersForm.reset();
     window.mainElements.map.classList.add('map--faded');
     window.mainElements.adForm.classList.add('ad-form--disabled');
     window.map.fillAddressCoordinate();
     window.form.disableFormsArray(window.mainElements.pageFieldsetArray);
     mainPinCoordinateReset();
     removePin();
+
+    if (window.form.adFormTitle.classList.contains('invalid-marker')) {
+      window.form.adFormTitle.classList.remove('invalid-marker');
+    } else if (window.form.adFormPrice.classList.contains('invalid-marker')) {
+      window.form.adFormPrice.classList.remove('invalid-marker');
+    }
+
+    window.form.removeListeners();
   }
 
-  adFormReset.addEventListener('click', function () {
+  function onFormReset() {
+    activatePageAfterReset();
+  }
+
+  adFormReset.addEventListener('click', function (evt) {
+    evt.preventDefault();
     resetForm();
-    window.mainElements.mainMapPin.addEventListener('mouseup', activatePageAfterReset);
+    window.mainElements.mainMapPin.addEventListener('mouseup', onFormReset);
   });
 
   window.reset = {
     resetForm: resetForm,
-    activatePageAfterReset: activatePageAfterReset,
     removePin: removePin,
+    onFormReset: onFormReset,
   };
 
 })();

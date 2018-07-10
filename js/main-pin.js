@@ -4,57 +4,48 @@
   window.mainElements.mainMapPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
-    var startCoords = {
+    var startCoordinates = {
       x: evt.clientX,
       y: evt.clientY
     };
 
-    var pinBreakPoints = {
-      minX: 0,
-      maxX: 1136,
-      minY: 130,
-      maxY: 630,
-    };
-
-    var dragged = false;
     var updatedCoordinateX;
     var updatedCoordinateY;
 
     function updateAddressCoordinate(x, y) {
-      var addressField = document.querySelector('#address');
-      addressField.value = x + ', ' + y;
+      window.mainElements.addressField.value = x + ', ' + y;
     }
 
     function onMouseMove(moveEvt) {
       moveEvt.preventDefault();
 
       var shift = {
-        x: startCoords.x - moveEvt.clientX,
-        y: startCoords.y - moveEvt.clientY
+        x: startCoordinates.x - moveEvt.clientX,
+        y: startCoordinates.y - moveEvt.clientY
       };
 
-      startCoords = {
+      startCoordinates = {
         x: moveEvt.clientX,
         y: moveEvt.clientY
       };
 
-      if (window.mainElements.mainMapPin.offsetTop - shift.y < pinBreakPoints.minY) {
-        window.mainElements.mainMapPin.style.top = pinBreakPoints.minY + 'px';
-        updatedCoordinateY = pinBreakPoints.minY;
-      } else if (window.mainElements.mainMapPin.offsetTop - shift.y > pinBreakPoints.maxY) {
-        window.mainElements.mainMapPin.style.top = pinBreakPoints.maxY + 'px';
-        updatedCoordinateY = pinBreakPoints.maxY;
+      if (window.mainElements.mainMapPin.offsetTop - shift.y < window.constants.PIN_BREAK_POINTS.minY) {
+        window.mainElements.mainMapPin.style.top = window.constants.PIN_BREAK_POINTS.minY + 'px';
+        updatedCoordinateY = window.constants.PIN_BREAK_POINTS.minY;
+      } else if (window.mainElements.mainMapPin.offsetTop - shift.y > window.constants.PIN_BREAK_POINTS.maxY) {
+        window.mainElements.mainMapPin.style.top = window.constants.PIN_BREAK_POINTS.maxY + 'px';
+        updatedCoordinateY = window.constants.PIN_BREAK_POINTS.maxY;
       } else {
         window.mainElements.mainMapPin.style.top = (window.mainElements.mainMapPin.offsetTop - shift.y) + 'px';
         updatedCoordinateY = window.mainElements.mainMapPin.offsetTop - shift.y;
       }
 
-      if (window.mainElements.mainMapPin.offsetLeft - shift.x < pinBreakPoints.minX) {
-        window.mainElements.mainMapPin.style.left = pinBreakPoints.minX + 'px';
-        updatedCoordinateX = pinBreakPoints.minX;
-      } else if (window.mainElements.mainMapPin.offsetLeft - shift.x > pinBreakPoints.maxX) {
-        window.mainElements.mainMapPin.style.left = pinBreakPoints.maxX + 'px';
-        updatedCoordinateX = pinBreakPoints.maxX;
+      if (window.mainElements.mainMapPin.offsetLeft - shift.x < window.constants.PIN_BREAK_POINTS.minX) {
+        window.mainElements.mainMapPin.style.left = window.constants.PIN_BREAK_POINTS.minX + 'px';
+        updatedCoordinateX = window.constants.PIN_BREAK_POINTS.minX;
+      } else if (window.mainElements.mainMapPin.offsetLeft - shift.x > window.constants.PIN_BREAK_POINTS.maxX) {
+        window.mainElements.mainMapPin.style.left = window.constants.PIN_BREAK_POINTS.maxX + 'px';
+        updatedCoordinateX = window.constants.PIN_BREAK_POINTS.maxX;
       } else {
         window.mainElements.mainMapPin.style.left = (window.mainElements.mainMapPin.offsetLeft - shift.x) + 'px';
         updatedCoordinateX = window.mainElements.mainMapPin.offsetLeft - shift.x;
@@ -66,16 +57,11 @@
     function onMouseUp(upEvt) {
       upEvt.preventDefault();
 
+      if (window.mainElements.map.classList.contains('map--faded')) {
+        window.map.onPageActivate();
+      }
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
-
-      if (dragged) {
-        var onClickPreventDefault = function (evtDrag) {
-          evtDrag.preventDefault();
-          window.mainElements.mainMapPin.removeEventListener('click', onClickPreventDefault);
-        };
-        window.mainElements.mainMapPin.addEventListener('click', onClickPreventDefault);
-      }
     }
 
     document.addEventListener('mousemove', onMouseMove);

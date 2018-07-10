@@ -9,30 +9,32 @@
     palace: 'Дворец',
   };
 
-  function createMapCardFeature(offerFeatureObject, offerFeatureCard) {
+  function createMapCardFeature(offerFeatureObject) {
     var similarFeature = document.createElement('li');
+    var featuresFragment = document.createDocumentFragment();
 
     for (var x = 0; x < offerFeatureObject.offer.features.length; x++) {
       var feature = similarFeature.cloneNode(true);
       feature.className = 'popup__feature popup__feature--' + offerFeatureObject.offer.features[x];
-      var featureList = offerFeatureCard.querySelector('.popup__features').appendChild(feature);
+      featuresFragment.appendChild(feature);
     }
-    return featureList;
+    return featuresFragment;
   }
 
-  function createMapCardPhotos(offerPhotoObject, offerPhotoCard) {
+  function createMapCardPhotos(offerPhotoObject) {
     var similarPhoto = document.createElement('img');
+    var photosFragment = document.createDocumentFragment();
 
     for (var y = 0; y < offerPhotoObject.offer.photos.length; y++) {
       var photo = similarPhoto.cloneNode(true);
-      photo.alt = window.constants.CARD_PHOTO_PARAMS.alt;
-      photo.width = window.constants.CARD_PHOTO_PARAMS.width;
-      photo.height = window.constants.CARD_PHOTO_PARAMS.height;
-      photo.className = window.constants.CARD_PHOTO_PARAMS.class;
+      photo.alt = window.constants.CARD_PHOTO_PARAMETERS.alt;
+      photo.width = window.constants.CARD_PHOTO_PARAMETERS.width;
+      photo.height = window.constants.CARD_PHOTO_PARAMETERS.height;
+      photo.className = window.constants.CARD_PHOTO_PARAMETERS.class;
       photo.src = offerPhotoObject.offer.photos[y];
-      var photoList = offerPhotoCard.querySelector('.popup__photos').appendChild(photo);
+      photosFragment.appendChild(photo);
     }
-    return photoList;
+    return photosFragment;
   }
 
   function createMapCardMainInfo(offerObject) {
@@ -49,15 +51,22 @@
       offerObject.offer.checkin + ', выезд до ' + offerObject.offer.checkout;
     newOfferCard.querySelector('.popup__description').textContent = offerObject.offer.description;
     newOfferCard.querySelector('.popup__type').textContent = AppartmentTypes[offerObject.offer.type];
-    newOfferCard.querySelector('.popup__features').innerHTML = '';
-    newOfferCard.querySelector('.popup__photos').innerHTML = '';
 
-    createMapCardFeature(offerObject, newOfferCard);
-    createMapCardPhotos(offerObject, newOfferCard);
+    var feauturesElement = newOfferCard.querySelector('.popup__features');
+    feauturesElement.innerHTML = '';
+
+    var photosElement = newOfferCard.querySelector('.popup__photos');
+    photosElement.innerHTML = '';
+
+    var featuresFragment = createMapCardFeature(offerObject);
+    feauturesElement.appendChild(featuresFragment);
+
+    var photosFragment = createMapCardPhotos(offerObject);
+    photosElement.appendChild(photosFragment);
 
     document.addEventListener('keydown', onMapCardRemove);
 
-    newOfferCard.querySelector('.popup__close').addEventListener('click', closeCardHandler);
+    newOfferCard.querySelector('.popup__close').addEventListener('click', onCardClose);
 
     var existCard = window.mainElements.map.querySelector('.map__card');
 
@@ -83,7 +92,7 @@
     }
   }
 
-  function closeCardHandler(evt) {
+  function onCardClose(evt) {
     closeCard(evt.currentTarget.parentNode);
   }
 

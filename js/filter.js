@@ -16,9 +16,9 @@
   var filtresForm = document.querySelector('.map__filters');
   var houseType = filtresForm.querySelector('#housing-type');
   var housePrice = filtresForm.querySelector('#housing-price');
-  var houseRooms = filtresForm.querySelector('#housing-rooms');
-  var houseGuests = filtresForm.querySelector('#housing-guests');
-  var feauturesList = filtresForm.querySelectorAll('input[name="features"]');
+  var houseRoom = filtresForm.querySelector('#housing-rooms');
+  var houseGuest = filtresForm.querySelector('#housing-guests');
+  var feautures = filtresForm.querySelectorAll('input[name="features"]');
 
   function compareValues(filterValue, compareValue) {
     return filterValue === window.constants.FILTER_ANY || compareValue === filterValue;
@@ -49,8 +49,8 @@
 
   function setPacketFiltres() {
 
-    var feauturesArr = Array.from(feauturesList);
-    var selectedFeautures = feauturesArr.filter(function (it) {
+    var filterFeautures = Array.from(feautures);
+    var selectedFeautures = filterFeautures.filter(function (it) {
       return it.checked;
     }).map(function (it) {
       return it.value;
@@ -62,11 +62,11 @@
         return false;
       }
 
-      if (!compareValues(houseRooms.value, it.offer.rooms.toString())) {
+      if (!compareValues(houseRoom.value, it.offer.rooms.toString())) {
         return false;
       }
 
-      if (!compareValues(houseGuests.value, it.offer.guests.toString())) {
+      if (!compareValues(houseGuest.value, it.offer.guests.toString())) {
         return false;
       }
 

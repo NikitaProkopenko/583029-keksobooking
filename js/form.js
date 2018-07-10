@@ -2,12 +2,6 @@
 
 (function () {
 
-  var ValidityValues = {
-    tooShort: 'Заголовок должен состоять минимум из 30 символов.',
-    tooLong: 'Заголовок состоит максимум из 100 символов.',
-    missing: 'Обязательное поле.',
-  };
-
   var adFormTitle = window.mainElements.adForm.querySelector('#title');
   var adFormPrice = window.mainElements.adForm.querySelector('#price');
   var adFormType = window.mainElements.adForm.querySelector('#type');
@@ -16,80 +10,66 @@
   var adFormRoomNumber = window.mainElements.adForm.querySelector('#room_number');
   var adFormCapacity = window.mainElements.adForm.querySelector('#capacity');
 
-  adFormTitle.addEventListener('invalid', function (evt) {
+  function onFormTitleChange(evt) {
     var target = evt.target;
 
-    if (target.validity.tooShort) {
-      target.setCustomValidity(ValidityValues.tooShort);
-      target.classList.add('invalid-marker');
-    } else if (target.validity.tooLong) {
-      target.setCustomValidity(ValidityValues.tooLong);
-      target.classList.add('invalid-marker');
-    } else if (target.validity.valueMissing) {
-      target.setCustomValidity(ValidityValues.missing);
+    if (target.validity.tooShort || target.validity.tooLong || target.validity.valueMissing) {
       target.classList.add('invalid-marker');
     } else {
-      target.setCustomValidity('');
-      target.classList.remove('invalid-marker');
+      if (target.classList.contains('invalid-marker')) {
+        target.classList.remove('invalid-marker');
+      }
     }
-  });
+  }
 
-  adFormPrice.addEventListener('invalid', function (evt) {
+  function onFormPriceChange(evt) {
     var target = evt.target;
-
-    if (target.value > window.constants.MAX_APPARTMENT_PRICE) {
-      target.setCustomValidity('Цена не должна превышать' + window.constants.MAX_APPARTMENT_PRICE + ' руб.');
-      target.classList.add('invalid-marker');
-    } else if (target.validity.valueMissing) {
-      target.setCustomValidity(ValidityValues.missing);
-      target.classList.add('invalid-marker');
-    } else if (target.value < target.min) {
-      target.setCustomValidity('Минимальная цена ' + target.min + ' руб.');
+    if (parseInt(target.value, 10) > window.constants.MAX_APPARTMENT_PRICE || target.validity.valueMissing ||
+      parseInt(target.value, 10) < target.min) {
       target.classList.add('invalid-marker');
     } else {
-      target.setCustomValidity('');
-      target.classList.remove('invalid-marker');
+      if (target.classList.contains('invalid-marker')) {
+        target.classList.remove('invalid-marker');
+      }
     }
-  });
+  }
 
-  adFormPrice.placeholder = window.constants.MIN_PRICE_PARAMS.flat;
-
-  adFormType.addEventListener('change', function (evt) {
+  function onFormTypeChange(evt) {
     var target = evt.target;
     var price = adFormPrice;
 
     switch (target.value) {
       case window.constants.AppartmentPriceTypes.bungalo:
-        price.min = window.constants.MIN_PRICE_PARAMS.bungalo;
-        price.placeholder = window.constants.MIN_PRICE_PARAMS.bungalo;
+        price.min = window.constants.MIN_PRICE_PARAMETERS.bungalo;
+        price.placeholder = window.constants.MIN_PRICE_PARAMETERS.bungalo;
         break;
       case window.constants.AppartmentPriceTypes.flat:
-        price.min = window.constants.MIN_PRICE_PARAMS.flat;
-        price.placeholder = window.constants.MIN_PRICE_PARAMS.flat;
+        price.min = window.constants.MIN_PRICE_PARAMETERS.flat;
+        price.placeholder = window.constants.MIN_PRICE_PARAMETERS.flat;
         break;
       case window.constants.AppartmentPriceTypes.house:
-        price.min = window.constants.MIN_PRICE_PARAMS.house;
-        price.placeholder = window.constants.MIN_PRICE_PARAMS.house;
+        price.min = window.constants.MIN_PRICE_PARAMETERS.house;
+        price.placeholder = window.constants.MIN_PRICE_PARAMETERS.house;
         break;
       case window.constants.AppartmentPriceTypes.palace:
-        price.min = window.constants.MIN_PRICE_PARAMS.palace;
-        price.placeholder = window.constants.MIN_PRICE_PARAMS.palace;
+        price.min = window.constants.MIN_PRICE_PARAMETERS.palace;
+        price.placeholder = window.constants.MIN_PRICE_PARAMETERS.palace;
         break;
       default:
-        price.min = window.constants.MIN_PRICE_PARAMS.flat;
-        price.placeholder = window.constants.MIN_PRICE_PARAMS.flat;
+        price.min = window.constants.MIN_PRICE_PARAMETERS.flat;
+        price.placeholder = window.constants.MIN_PRICE_PARAMETERS.flat;
     }
-  });
+  }
 
-  adFormTimeIn.addEventListener('change', function (evt) {
+  function onFormTimeInChange(evt) {
     var target = evt.target;
     adFormTimeOut.value = target.value;
-  });
+  }
 
-  adFormTimeOut.addEventListener('change', function (evt) {
+  function onFormTimeOutChange(evt) {
     var target = evt.target;
     adFormTimeIn.value = target.value;
-  });
+  }
 
   function disableFormsArray(array) {
     for (var i = 0; i < array.length; i++) {
@@ -123,20 +103,43 @@
 
   setCapacity(window.constants.DEFAULT_SELECTED_ROOM);
 
-  adFormRoomNumber.addEventListener('change', onFormRoomNumberChange);
-
-  adFormCapacity.addEventListener('change', function (evt) {
+  function onFormCapacityChange(evt) {
     var target = evt.target;
     if (adFormRoomNumber.value !== target.value) {
       adFormRoomNumber.classList.add('invalid-marker');
     } else {
       adFormRoomNumber.classList.remove('invalid-marker');
     }
-  });
+  }
+
+  function bindListeners() {
+    adFormTitle.addEventListener('change', onFormTitleChange);
+    adFormType.addEventListener('change', onFormTypeChange);
+    adFormPrice.addEventListener('change', onFormPriceChange);
+    adFormTimeIn.addEventListener('change', onFormTimeInChange);
+    adFormTimeOut.addEventListener('change', onFormTimeOutChange);
+    adFormRoomNumber.addEventListener('change', onFormRoomNumberChange);
+    adFormCapacity.addEventListener('change', onFormCapacityChange);
+  }
+
+  function removeListeners() {
+    adFormTitle.removeEventListener('change', onFormTitleChange);
+    adFormType.removeEventListener('change', onFormTypeChange);
+    adFormPrice.removeEventListener('change', onFormPriceChange);
+    adFormTimeIn.removeEventListener('change', onFormTimeInChange);
+    adFormTimeOut.removeEventListener('change', onFormTimeOutChange);
+    adFormRoomNumber.removeEventListener('change', onFormRoomNumberChange);
+    adFormCapacity.removeEventListener('change', onFormCapacityChange);
+    adFormPrice.placeholder = window.constants.MIN_PRICE_PARAMETERS.flat;
+  }
 
   window.form = {
     disableFormsArray: disableFormsArray,
     allowFormArray: allowFormArray,
+    bindListeners: bindListeners,
+    removeListeners: removeListeners,
+    adFormTitle: adFormTitle,
+    adFormPrice: adFormPrice,
   };
 
 })();
