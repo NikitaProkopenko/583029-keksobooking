@@ -24,8 +24,8 @@
 
   function onFormPriceChange(evt) {
     var target = evt.target;
-    if (target.value > window.constants.MAX_APPARTMENT_PRICE || target.validity.valueMissing ||
-      target.value < target.min) {
+    if (parseInt(target.value, 10) > window.constants.MAX_APPARTMENT_PRICE || target.validity.valueMissing ||
+      parseInt(target.value, 10) < target.min) {
       target.classList.add('invalid-marker');
     } else {
       if (target.classList.contains('invalid-marker')) {
