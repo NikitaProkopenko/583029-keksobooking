@@ -57,7 +57,9 @@
     function onMouseUp(upEvt) {
       upEvt.preventDefault();
 
-      window.map.onPageActivate();
+      if (window.mainElements.map.classList.contains('map--faded')) {
+        window.map.onPageActivate();
+      }
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     }
