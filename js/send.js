@@ -14,7 +14,7 @@
     window.backend.uploadData(formData, function (status) {
       if (status) {
         window.resultWindow.successWindowHandler();
-        window.mainElements.mainMapPin.addEventListener('mouseup', window.reset.activatePageAfterReset);
+        window.mainElements.mainMapPin.addEventListener('mouseup', window.reset.onFormReset);
       }
     }, function (error) {
       window.resultWindow.showErrorWindow(error);

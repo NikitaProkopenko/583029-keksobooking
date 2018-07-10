@@ -44,13 +44,17 @@
     window.form.bindListeners();
   }
 
+  function onPageActivate() {
+    activatePage();
+  }
+
   preparePage();
 
   window.map = {
     fillAddressCoordinate: fillAddressCoordinate,
     mainMapPinParams: mainMapPinParams,
     pinsObjects: [],
-    activatePage: activatePage,
+    onPageActivate: onPageActivate,
   };
 
 })();

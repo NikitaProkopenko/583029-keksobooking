@@ -18,7 +18,7 @@
   var housePrice = filtresForm.querySelector('#housing-price');
   var houseRoom = filtresForm.querySelector('#housing-rooms');
   var houseGuest = filtresForm.querySelector('#housing-guests');
-  var feauturesList = filtresForm.querySelectorAll('input[name="features"]');
+  var feautures = filtresForm.querySelectorAll('input[name="features"]');
 
   function compareValues(filterValue, compareValue) {
     return filterValue === window.constants.FILTER_ANY || compareValue === filterValue;
@@ -49,8 +49,8 @@
 
   function setPacketFiltres() {
 
-    var feauturesArray = Array.from(feauturesList);
-    var selectedFeautures = feauturesArray.filter(function (it) {
+    var filterFeautures = Array.from(feautures);
+    var selectedFeautures = filterFeautures.filter(function (it) {
       return it.checked;
     }).map(function (it) {
       return it.value;

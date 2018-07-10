@@ -32,7 +32,7 @@
       window.resultWindow.showErrorWindow(error);
     });
 
-    window.mainElements.mainMapPin.removeEventListener('mouseup', activatePageAfterReset);
+    window.mainElements.mainMapPin.removeEventListener('mouseup', onFormReset);
     window.form.bindListeners();
   }
 
@@ -47,15 +47,19 @@
     window.form.removeListeners();
   }
 
+  function onFormReset() {
+    activatePageAfterReset();
+  }
+
   adFormReset.addEventListener('click', function () {
     resetForm();
-    window.mainElements.mainMapPin.addEventListener('mouseup', activatePageAfterReset);
+    window.mainElements.mainMapPin.addEventListener('mouseup', onFormReset);
   });
 
   window.reset = {
     resetForm: resetForm,
-    activatePageAfterReset: activatePageAfterReset,
     removePin: removePin,
+    onFormReset: onFormReset,
   };
 
 })();
