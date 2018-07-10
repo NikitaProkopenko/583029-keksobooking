@@ -52,7 +52,8 @@
     activatePageAfterReset();
   }
 
-  adFormReset.addEventListener('click', function () {
+  adFormReset.addEventListener('click', function (evt) {
+    evt.preventDefault();
     resetForm();
     window.mainElements.mainMapPin.addEventListener('mouseup', onFormReset);
   });

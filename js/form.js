@@ -2,12 +2,6 @@
 
 (function () {
 
-  var ValidityValues = {
-    tooShort: 'Заголовок должен состоять минимум из 30 символов.',
-    tooLong: 'Заголовок состоит максимум из 100 символов.',
-    missing: 'Обязательное поле.',
-  };
-
   var adFormTitle = window.mainElements.adForm.querySelector('#title');
   var adFormPrice = window.mainElements.adForm.querySelector('#price');
   var adFormType = window.mainElements.adForm.querySelector('#type');
@@ -16,20 +10,27 @@
   var adFormRoomNumber = window.mainElements.adForm.querySelector('#room_number');
   var adFormCapacity = window.mainElements.adForm.querySelector('#capacity');
 
-  function onFormTitleInvalid(evt) {
+  function onFormTitleChange(evt) {
     var target = evt.target;
-    if (target.validity.tooShort) {
-      target.setCustomValidity(ValidityValues.tooShort);
-      target.classList.add('invalid-marker');
-    } else if (target.validity.tooLong) {
-      target.setCustomValidity(ValidityValues.tooLong);
-      target.classList.add('invalid-marker');
-    } else if (target.validity.valueMissing) {
-      target.setCustomValidity(ValidityValues.missing);
+
+    if (target.validity.tooShort || target.validity.tooLong || target.validity.valueMissing) {
       target.classList.add('invalid-marker');
     } else {
-      target.setCustomValidity('');
-      target.classList.remove('invalid-marker');
+      if (target.classList.contains('invalid-marker')) {
+        target.classList.remove('invalid-marker');
+      }
+    }
+  }
+
+  function onFormPriceChange(evt) {
+    var target = evt.target;
+    if (target.value > window.constants.MAX_APPARTMENT_PRICE || target.validity.valueMissing ||
+      target.value < target.min) {
+      target.classList.add('invalid-marker');
+    } else {
+      if (target.classList.contains('invalid-marker')) {
+        target.classList.remove('invalid-marker');
+      }
     }
   }
 
@@ -57,23 +58,6 @@
       default:
         price.min = window.constants.MIN_PRICE_PARAMETERS.flat;
         price.placeholder = window.constants.MIN_PRICE_PARAMETERS.flat;
-    }
-  }
-
-  function onFormPriceInvalid(evt) {
-    var target = evt.target;
-    if (target.value > window.constants.MAX_APPARTMENT_PRICE) {
-      target.setCustomValidity('Цена не должна превышать ' + window.constants.MAX_APPARTMENT_PRICE + ' руб.');
-      target.classList.add('invalid-marker');
-    } else if (target.validity.valueMissing) {
-      target.setCustomValidity(ValidityValues.missing);
-      target.classList.add('invalid-marker');
-    } else if (target.value < target.min) {
-      target.setCustomValidity('Минимальная цена ' + target.min + ' руб.');
-      target.classList.add('invalid-marker');
-    } else {
-      target.setCustomValidity('');
-      target.classList.remove('invalid-marker');
     }
   }
 
@@ -129,9 +113,9 @@
   }
 
   function bindListeners() {
-    adFormTitle.addEventListener('invalid', onFormTitleInvalid);
+    adFormTitle.addEventListener('change', onFormTitleChange);
     adFormType.addEventListener('change', onFormTypeChange);
-    adFormPrice.addEventListener('invalid', onFormPriceInvalid);
+    adFormPrice.addEventListener('change', onFormPriceChange);
     adFormTimeIn.addEventListener('change', onFormTimeInChange);
     adFormTimeOut.addEventListener('change', onFormTimeOutChange);
     adFormRoomNumber.addEventListener('change', onFormRoomNumberChange);
@@ -139,9 +123,9 @@
   }
 
   function removeListeners() {
-    adFormTitle.removeEventListener('invalid', onFormTitleInvalid);
+    adFormTitle.removeEventListener('change', onFormTitleChange);
     adFormType.removeEventListener('change', onFormTypeChange);
-    adFormPrice.removeEventListener('invalid', onFormPriceInvalid);
+    adFormPrice.removeEventListener('change', onFormPriceChange);
     adFormTimeIn.removeEventListener('change', onFormTimeInChange);
     adFormTimeOut.removeEventListener('change', onFormTimeOutChange);
     adFormRoomNumber.removeEventListener('change', onFormRoomNumberChange);
