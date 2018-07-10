@@ -45,6 +45,13 @@
     window.form.disableFormsArray(window.mainElements.pageFieldsetArray);
     mainPinCoordinateReset();
     removePin();
+
+    if (window.form.adFormTitle.classList.contains('invalid-marker')) {
+      window.form.adFormTitle.classList.remove('invalid-marker');
+    } else if (window.form.adFormPrice.classList.contains('invalid-marker')) {
+      window.form.adFormPrice.classList.remove('invalid-marker');
+    }
+
     window.form.removeListeners();
   }
 
