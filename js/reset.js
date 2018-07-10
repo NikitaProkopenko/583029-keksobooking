@@ -38,6 +38,7 @@
 
   function resetForm() {
     window.mainElements.adForm.reset();
+    window.mainElements.mapFiltersForm.reset();
     window.mainElements.map.classList.add('map--faded');
     window.mainElements.adForm.classList.add('ad-form--disabled');
     window.map.fillAddressCoordinate();
