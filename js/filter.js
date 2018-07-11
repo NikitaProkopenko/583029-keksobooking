@@ -89,4 +89,9 @@
 
   filtresForm.addEventListener('change', onFiltresFormChange);
 
+  window.filter = {
+    onFiltresFormChange: onFiltresFormChange,
+    filtresForm: filtresForm,
+  };
+
 })();

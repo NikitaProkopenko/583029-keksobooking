@@ -29,6 +29,9 @@
   function preparePage() {
     window.form.disableFormsArray(window.mainElements.pageFieldsetArray);
     fillAddressCoordinate();
+    window.mainElements.adForm.removeEventListener('submit', window.send.onFormSubmit);
+    window.reset.adFormReset.removeEventListener('click', window.reset.onResetClick);
+    window.filter.filtresForm.removeEventListener('change', window.filter.onFiltresFormChange);
   }
 
   function activatePage() {
@@ -42,6 +45,9 @@
       window.resultWindow.showErrorWindow(error);
     });
     window.form.bindListeners();
+    window.mainElements.adForm.addEventListener('submit', window.send.onFormSubmit);
+    window.reset.adFormReset.addEventListener('click', window.reset.onResetClick);
+    window.filter.filtresForm.addEventListener('change', window.filter.onFiltresFormChange);
   }
 
   function onPageActivate() {
