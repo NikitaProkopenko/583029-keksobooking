@@ -15,7 +15,7 @@
     var formData = new FormData(document.querySelector('.ad-form'));
     window.backend.uploadData(formData, function (status) {
       if (status) {
-        window.resultWindow.successWindowHandler();
+        window.resultWindow.onSuccessWindow();
         window.mainElements.mainMapPin.addEventListener('mouseup', window.reset.onFormReset);
       }
     }, function (error) {
