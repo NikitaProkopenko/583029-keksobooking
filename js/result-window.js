@@ -1,18 +1,21 @@
 'use strict';
 
 (function () {
-  function successWindowHandler() {
+  function onSuccessWindow() {
     window.mainElements.successWindow.classList.remove('hidden');
     window.reset.resetForm();
-    document.addEventListener('keydown', removeSuccessWindowHandler);
+    document.addEventListener('keydown', onSuccessWindowRemove);
+    window.mainElements.adForm.removeEventListener('submit', window.send.onFormSubmit);
+    window.reset.adFormReset.removeEventListener('click', window.reset.onResetClick);
+    window.filter.filtresForm.removeEventListener('change', window.filter.onFiltresFormChange);
   }
 
-  function removeSuccessWindowHandler(evt) {
+  function onSuccessWindowRemove(evt) {
     if (evt.key === window.constants.ESCAPE) {
       if (window.mainElements.successWindow) {
         window.mainElements.successWindow.classList.add('hidden');
       }
-      document.removeEventListener('keydown', removeSuccessWindowHandler);
+      document.removeEventListener('keydown', onSuccessWindowRemove);
     }
   }
 
@@ -27,7 +30,7 @@
   }
 
   window.resultWindow = {
-    successWindowHandler: successWindowHandler,
+    onSuccessWindow: onSuccessWindow,
     showErrorWindow: showErrorWindow,
   };
 
